@@ -10,14 +10,22 @@ function SortableCandidate({ id }) {
 		transition,
 	} = useSortable({ id: id });
 
-	const style = {
-		transform: CSS.Transform.toString(transform),
-		transition,
-		touchAction: "none"
-	};
-
 	return (
-		<div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+		<div
+			ref={setNodeRef}
+			style={
+				{
+				transform: CSS.Transform.toString(transform),
+				transition,
+				touchAction: "none",
+				backgroundColor: "lime",
+				margin: 10,
+				textAlign: "center"
+			}
+			}
+			{...attributes}
+			{...listeners}
+		>
 			{id}
 		</div>
 	);

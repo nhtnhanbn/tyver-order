@@ -1,7 +1,6 @@
 import { useState } from "react"
 import {
 	DndContext,
-	closestCorners,
 	KeyboardSensor,
 	PointerSensor,
 	useSensor,
@@ -11,7 +10,6 @@ import {
 	arrayMove,
 	sortableKeyboardCoordinates
 } from "@dnd-kit/sortable";
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableCandidate } from "./SortableCandidate";
 import { SortableGroup } from "./SortableGroup";
 // import "./App.css";
@@ -32,24 +30,28 @@ function App() {
 		<>
 			<DndContext
 				sensors={sensors}
-				collisionDetection={closestCorners}
 				onDragEnd={handleDragEnd}
 				onDragOver={handleDragOver}
-				modifiers={[restrictToVerticalAxis]}
 			>
-				{
-					Object.entries(itemTree).map(([key, items]) => {
-						return (
-							<SortableGroup key={key} id={key} items={items}>
-								{
-									items.map((id) => {
-										return <SortableCandidate key={id} id={id} />;
-									})
-								}
-							</SortableGroup>
-						);
-					})
-				}
+				<div 
+					style={
+						{ display: "flex", flexDirection: "row" }
+					}
+				>
+					{
+						Object.entries(itemTree).map(([key, items]) => {
+							return (
+								<SortableGroup key={key} id={key} items={items}>
+									{
+										items.map((id) => {
+											return <SortableCandidate key={id} id={id} />;
+										})
+									}
+								</SortableGroup>
+							);
+						})
+					}
+				</div>
 			</DndContext>
 			<button
 				onClick={
@@ -62,12 +64,20 @@ function App() {
 	);
 
 	function findGroupKey(itemId) {
+		if (itemId in itemTree) {
+			return itemId;
+		}
+		
 		return Object.keys(itemTree).find((key) => {
 			return itemTree[key].includes(itemId);
 		});
 	}
 
 	function handleDragOver({ active, over }) {
+		if (over === null) {
+			return;
+		}
+		
 		const activeGroup = findGroupKey(active.id);
 		const overGroup = findGroupKey(over.id);
 
@@ -87,6 +97,10 @@ function App() {
 	}
 
 	function handleDragEnd({ active, over }) {
+		if (over === null) {
+			return;
+		}
+
 		const activeGroup = findGroupKey(active.id);
 		const overGroup = findGroupKey(over.id);
 
