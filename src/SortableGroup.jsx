@@ -4,7 +4,7 @@ import { verticalListSortingStrategy, SortableContext } from "@dnd-kit/sortable"
 
 function SortableGroup({ children, id, items }) {
 	const { setNodeRef } = useDroppable({ id: id });
-	const [ collapsed, setCollapsed ] = useState(false);
+	const [ collapsed, setCollapsed ] = useState(true);
 
 	return (
 		<SortableContext
@@ -39,9 +39,7 @@ function SortableGroup({ children, id, items }) {
 						{ collapsed ? "+" : "-" }
 					</span>
 				</div>
-				{
-					children(collapsed)
-				}
+				{children(collapsed)}
 			</div>
 		</SortableContext>
 	);
