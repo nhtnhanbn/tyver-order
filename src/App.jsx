@@ -35,7 +35,7 @@ function App() {
 			>
 				<div 
 					style={
-						{ display: "flex", flexDirection: "row" }
+						{ display: "flex", flexDirection: "row", alignItems: "start" }
 					}
 				>
 					{
@@ -43,9 +43,13 @@ function App() {
 							return (
 								<SortableGroup key={key} id={key} items={items}>
 									{
-										items.map((id) => {
-											return <SortableCandidate key={id} id={id} />;
-										})
+										(collapsed) => {
+											return (
+													items.map((id) => {
+														return <SortableCandidate key={id} id={id} collapsed={collapsed} />;
+													})
+											);
+										}
 									}
 								</SortableGroup>
 							);

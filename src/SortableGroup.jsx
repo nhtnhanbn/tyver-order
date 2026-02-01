@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { verticalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 
 function SortableGroup({ children, id, items }) {
 	const { setNodeRef } = useDroppable({ id: id });
+	const [ collapsed, setCollapsed ] = useState(false);
+
 	return (
 		<SortableContext
 			id={id}
@@ -14,14 +17,31 @@ function SortableGroup({ children, id, items }) {
 				style={
 					{
 						background: "red",
-						padding: 10,
 						margin: 10,
-						width: 100
+						width: 100,
+						height: "auto"
 					}
 				}
 			>
-				{id}
-				{children}
+				<div style={
+					{
+						margin: 10,
+						display: "flex",
+						justifyContent: "space-between"
+					}
+				}>
+					{id}
+					<span onClick={
+						() => {
+							setCollapsed(!collapsed);
+						}
+					}>
+						{ collapsed ? "+" : "-" }
+					</span>
+				</div>
+				{
+					children(collapsed)
+				}
 			</div>
 		</SortableContext>
 	);
