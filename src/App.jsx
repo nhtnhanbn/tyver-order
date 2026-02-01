@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import {
 	DndContext,
 	KeyboardSensor,
@@ -15,6 +15,16 @@ import { SortableGroup } from "./SortableGroup";
 import { SortableColumn } from "./SortableColumn";
 // import "./App.css";
 
+function debounce(fn, delay) {
+	let timeout;
+	return function (...args) {
+		clearTimeout(timeout);
+		timeout = setTimeout(() => {
+			fn.apply(this, args);
+		}, delay);
+	}
+}
+
 function App() {
 	const [candidateGroups, setCandidateGroups] = useState({
 		A: [1, 2, 3],
@@ -24,6 +34,56 @@ function App() {
 		active: [],
 		unused: ["A", "B"]
 	});
+
+	const debounceHandleDragOver = useCallback(
+		debounce((active, over, groupColumns, candidateGroups) => {
+			if (over === null) {
+				return;
+			}
+			
+			const activeContainer = findContainer(active.id, groupColumns, candidateGroups);
+			const overContainer = findContainer(over.id, groupColumns, candidateGroups);
+			console.log(active.id, over.id, activeContainer, overContainer);
+
+			if (activeContainer !== overContainer) {
+				setGroupColumns((groupColumns) => {
+					const newGroupColumns = { ...groupColumns };
+
+					if (activeContainer in groupColumns) {
+						newGroupColumns[activeContainer] = newGroupColumns[activeContainer].filter((item) => {
+							return item !== active.id;
+						});
+					}
+
+					if (overContainer in groupColumns) {
+						if (!newGroupColumns[overContainer].includes(active.id)) {
+							newGroupColumns[overContainer] = [...newGroupColumns[overContainer], active.id];
+						}
+					}
+
+					return newGroupColumns;
+				});
+
+				setCandidateGroups((candidateGroups) => {
+					const newCandidateGroups = { ...candidateGroups };
+
+					if (!(activeContainer in groupColumns)) {
+						newCandidateGroups[activeContainer] = newCandidateGroups[activeContainer].filter((item) => {
+							return item !== active.id;
+						});
+					}
+					if (!(overContainer in groupColumns)) {
+						if (!newCandidateGroups[overContainer].includes(active.id)) {
+							newCandidateGroups[overContainer] = [...newCandidateGroups[overContainer], active.id];
+						}
+					}
+
+					return newCandidateGroups;
+				});
+			}
+		}, 100),
+		[]
+	);
 
 	function displayGroups(groups) {
 		return groups.map((groupId) => {
@@ -83,7 +143,7 @@ function App() {
 		</>
 	);
 
-	function findContainer(id) {
+	function findContainer(id, groupColumns, candidateGroups) {
 		if (id in groupColumns) {
 			return id;
 		} else {
@@ -102,49 +162,8 @@ function App() {
 	}
 
 	function handleDragOver({ active, over }) {
-		if (over === null) {
-			return;
-		}
-		
-		const activeContainer = findContainer(active.id);
-		const overContainer = findContainer(over.id);
-
-		if (activeContainer !== overContainer) {
-			setGroupColumns((groupColumns) => {
-				const newGroupColumns = { ...groupColumns };
-
-				if (activeContainer in groupColumns) {
-					newGroupColumns[activeContainer] = newGroupColumns[activeContainer].filter((item) => {
-						return item !== active.id;
-					});
-				}
-
-				if (overContainer in groupColumns) {
-					if (!newGroupColumns[overContainer].includes(active.id)) {
-						newGroupColumns[overContainer] = [...newGroupColumns[overContainer], active.id];
-					}
-				}
-
-				return newGroupColumns;
-			});
-
-			setCandidateGroups((candidateGroups) => {
-				const newCandidateGroups = { ...candidateGroups };
-
-				if (!(activeContainer in groupColumns)) {
-					newCandidateGroups[activeContainer] = newCandidateGroups[activeContainer].filter((item) => {
-						return item !== active.id;
-					});
-				}
-				if (!(overContainer in groupColumns)) {
-					if (!newCandidateGroups[overContainer].includes(active.id)) {
-						newCandidateGroups[overContainer] = [...newCandidateGroups[overContainer], active.id];
-					}
-				}
-
-				return newCandidateGroups;
-			});
-		}
+		console.log(groupColumns.unused, candidateGroups.A, candidateGroups.B);
+		debounceHandleDragOver(active, over, groupColumns, candidateGroups);
 	}
 
 	function handleDragEnd({ active, over }) {
@@ -152,8 +171,8 @@ function App() {
 			return;
 		}
 
-		const activeContainer = findContainer(active.id);
-		const overContainer = findContainer(over.id);
+		const activeContainer = findContainer(active.id, groupColumns, candidateGroups);
+		const overContainer = findContainer(over.id, groupColumns, candidateGroups);
 
 		console.log(active.id, over.id, activeContainer, overContainer);
 
