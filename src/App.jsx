@@ -4,7 +4,8 @@ import {
 	KeyboardSensor,
 	PointerSensor,
 	useSensor,
-	useSensors
+	useSensors,
+	rectIntersection
 } from '@dnd-kit/core';
 import {
 	arrayMove,
@@ -121,6 +122,28 @@ function App() {
 		});
 	}
 
+	function prioritisedCollisionDetection({
+		active,
+		droppableContainers,
+		...args
+	}) {
+		if (droppableId(active.id) in candidateGroups) {
+			return rectIntersection({
+				active,
+				droppableContainers: droppableContainers.filter((container) => {
+					return findContainer(container.id, groupColumns, candidateGroups) in groupColumns;
+				}),
+				...args
+			});
+		}
+		
+		return rectIntersection({
+			active,
+			droppableContainers,
+			...args
+		});
+	}
+
 	return (
 		<>
 			<DndContext
@@ -134,6 +157,7 @@ function App() {
 				}
 				onDragEnd={handleDragEnd}
 				onDragOver={handleDragOver}
+				collisionDetection={prioritisedCollisionDetection}
 			>
 				<div 
 					style={
