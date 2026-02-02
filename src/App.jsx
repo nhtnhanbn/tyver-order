@@ -16,7 +16,7 @@ import { SortableGroup } from "./SortableGroup";
 import { SortableColumn } from "./SortableColumn";
 import { droppableId } from "./droppableId";
 import viclegcogroups from "./viclegcogroups.json";
-// import "./App.css";
+import "./App.css";
 
 function debounce(fn, delay) {
 	let timeout;
@@ -127,7 +127,7 @@ function App() {
 				);
 			} else {
 				return (
-					<SortableCandidate key={groupId} id={groupId} collapsed={false} />
+					<SortableCandidate key={groupId} id={groupId} />
 				);
 			}
 		});
@@ -162,17 +162,17 @@ function App() {
 				return candidateCollisions;
 			}
 
-			// const groupCollisions = detectionAlgorithm({
-			// 	active: active,
-			// 	droppableContainers: filteredContainers.filter((container) => {
-			// 		return (droppableId(container.id) in candidateGroups) && (container.id !== active.id);
-			// 	}),
-			// 	...args
-			// });
+			const groupCollisions = detectionAlgorithm({
+				active: active,
+				droppableContainers: filteredContainers.filter((container) => {
+					return (droppableId(container.id) in candidateGroups) && (container.id !== active.id);
+				}),
+				...args
+			});
 
-			// if (groupCollisions.length > 0) {
-			// 	return groupCollisions;
-			// }
+			if (groupCollisions.length > 0) {
+				return groupCollisions;
+			}
 
 			return detectionAlgorithm({
 				active: active,
@@ -193,7 +193,9 @@ function App() {
 			<DndContext
 				sensors={
 					useSensors(
-						useSensor(PointerSensor),
+						useSensor(PointerSensor, {
+							activationConstraint: { distance: 0.01 }
+						}),
 						useSensor(KeyboardSensor, {
 							coordinateGetter: sortableKeyboardCoordinates,
 						})
@@ -205,7 +207,13 @@ function App() {
 			>
 				<div 
 					style={
-						{ display: "flex", flexDirection: "row", alignItems: "start", gap: 10 }
+						{
+							display: "flex",
+							flexDirection: "row",
+							alignItems: "stretch",
+							justifyContent: "center",
+							gap: 10
+						}
 					}
 				>
 					<SortableColumn id="active" items={groupColumns.active}>

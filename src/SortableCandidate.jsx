@@ -18,14 +18,14 @@ function SortableCandidate({ id }) {
 				{
 					transform: CSS.Translate.toString(transform),
 					transition,
-					touchAction: "none",
 					backgroundColor: "lime",
 					marginTop: 10,
 					marginBottom: 10,
 					marginLeft: "auto",
 					marginRight: "auto",
 					width: 400,
-					textAlign: "center",
+					maxWidth: "90%",
+					padding: 10,
 					position: isDragging && "relative",
 					zIndex: 1
 				}

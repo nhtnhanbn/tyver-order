@@ -31,6 +31,8 @@ function SortableGroup({ children, id, items }) {
 					zIndex: 1
 				}
 			}
+					{...attributes}
+					{...listeners}
 		>
 			<div style={
 				{
@@ -38,21 +40,20 @@ function SortableGroup({ children, id, items }) {
 					justifyContent: "space-between"
 				}
 			}>
-				<button
-					style={
-						{
-							touchAction: "none",
+				{id}
+				<div
+					onClick={
+						() => {
+							setCollapsed(!collapsed);
 						}
 					}
-					{...attributes}
-					{...listeners}
-				>D</button>
-				{id}
-				<div onClick={
-					() => {
-						setCollapsed(!collapsed);
+					style={
+						{
+							width: "1em",
+							cursor: "pointer"
+						}
 					}
-				}>
+				>
 					{ collapsed ? "+" : "-" }
 				</div>
 			</div>
@@ -70,7 +71,8 @@ function SortableGroup({ children, id, items }) {
 								background: "yellow",
 								textAlign: "center",
 								minHeight: "4em",
-								padding: "10px"
+								padding: 10,
+								marginTop: 10
 							}
 						}
 					>
