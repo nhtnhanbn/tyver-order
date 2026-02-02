@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { verticalListSortingStrategy, SortableContext, useSortable } from "@dnd-kit/sortable";
+import { droppableId } from "./droppableId";
 
 function SortableGroup({ children, id, items }) {
 	const {
@@ -11,7 +12,7 @@ function SortableGroup({ children, id, items }) {
 		transform,
 		transition,
 	} = useSortable({ id: id });
-	const { setNodeRef: setDroppableNodeRef } = useDroppable({ id: id });
+	const { setNodeRef: setDroppableNodeRef } = useDroppable({ id: droppableId(id) });
 	const [ collapsed, setCollapsed ] = useState(true);
 
 	return (
@@ -45,12 +46,16 @@ function SortableGroup({ children, id, items }) {
 				</div>
 			</div>
 			<SortableContext
-				id={id}
 				items={items}
 				strategy={verticalListSortingStrategy}
 			>
 				<div
 					ref={setDroppableNodeRef}
+					style={
+						{
+							background: "yellow"
+						}
+					}
 				>
 					{children(collapsed)}
 				</div>

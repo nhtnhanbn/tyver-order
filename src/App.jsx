@@ -13,6 +13,7 @@ import {
 import { SortableCandidate } from "./SortableCandidate";
 import { SortableGroup } from "./SortableGroup";
 import { SortableColumn } from "./SortableColumn";
+import { droppableId } from "./droppableId";
 // import "./App.css";
 
 function debounce(fn, delay) {
@@ -27,8 +28,8 @@ function debounce(fn, delay) {
 
 function App() {
 	const [candidateGroups, setCandidateGroups] = useState({
-		A: [1, 2, 3],
-		B: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+		"A Droppable": [1, 2, 3],
+		"B Droppable": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 	});
 	const [groupColumns, setGroupColumns] = useState({
 		active: [],
@@ -45,55 +46,66 @@ function App() {
 			const overContainer = findContainer(over.id, groupColumns, candidateGroups);
 			console.log(active.id, over.id, activeContainer, overContainer);
 
-			if (activeContainer !== overContainer) {
-				setGroupColumns((groupColumns) => {
-					const newGroupColumns = { ...groupColumns };
-
-					if (activeContainer in groupColumns) {
-						newGroupColumns[activeContainer] = newGroupColumns[activeContainer].filter((item) => {
-							return item !== active.id;
-						});
-					}
-
-					if (overContainer in groupColumns) {
-						if (!newGroupColumns[overContainer].includes(active.id)) {
-							newGroupColumns[overContainer] = [...newGroupColumns[overContainer], active.id];
-						}
-					}
-
-					return newGroupColumns;
-				});
-
-				setCandidateGroups((candidateGroups) => {
-					const newCandidateGroups = { ...candidateGroups };
-
-					if (!(activeContainer in groupColumns)) {
-						newCandidateGroups[activeContainer] = newCandidateGroups[activeContainer].filter((item) => {
-							return item !== active.id;
-						});
-					}
-					if (!(overContainer in groupColumns)) {
-						if (!newCandidateGroups[overContainer].includes(active.id)) {
-							newCandidateGroups[overContainer] = [...newCandidateGroups[overContainer], active.id];
-						}
-					}
-
-					return newCandidateGroups;
-				});
+			if (activeContainer === overContainer) {
+				return;
 			}
+
+			if (
+				droppableId(active.id) in candidateGroups &&
+				!(overContainer in groupColumns)
+			) {
+				console.log("pass");
+				return;
+			}
+
+			setGroupColumns((groupColumns) => {
+				const newGroupColumns = { ...groupColumns };
+
+				if (activeContainer in groupColumns) {
+					newGroupColumns[activeContainer] = newGroupColumns[activeContainer].filter((item) => {
+						return item !== active.id;
+					});
+				}
+
+				if (overContainer in groupColumns) {
+					if (!newGroupColumns[overContainer].includes(active.id)) {
+						newGroupColumns[overContainer] = [...newGroupColumns[overContainer], active.id];
+					}
+				}
+
+				return newGroupColumns;
+			});
+
+			setCandidateGroups((candidateGroups) => {
+				const newCandidateGroups = { ...candidateGroups };
+
+				if (!(activeContainer in groupColumns)) {
+					newCandidateGroups[activeContainer] = newCandidateGroups[activeContainer].filter((item) => {
+						return item !== active.id;
+					});
+				}
+				if (!(overContainer in groupColumns)) {
+					if (!newCandidateGroups[overContainer].includes(active.id)) {
+						newCandidateGroups[overContainer] = [...newCandidateGroups[overContainer], active.id];
+					}
+				}
+
+				return newCandidateGroups;
+			});
 		}, 100),
 		[]
 	);
 
 	function displayGroups(groups) {
 		return groups.map((groupId) => {
-			if (groupId in candidateGroups) {
+			const droppableGroupId = droppableId(groupId);
+			if (droppableGroupId in candidateGroups) {
 				return (
-					<SortableGroup key={groupId} id={groupId} items={candidateGroups[groupId]}>
+					<SortableGroup key={groupId} id={groupId} items={candidateGroups[droppableGroupId]}>
 						{
 							(collapsed) => {
 								return (
-										candidateGroups[groupId].map((candidateId) => {
+										candidateGroups[droppableGroupId].map((candidateId) => {
 											return <SortableCandidate key={candidateId} id={candidateId} collapsed={collapsed} />;
 										})
 								);
@@ -146,23 +158,27 @@ function App() {
 	function findContainer(id, groupColumns, candidateGroups) {
 		if (id in groupColumns) {
 			return id;
-		} else {
-			const column = Object.keys(groupColumns).find((key) => {
-				return groupColumns[key].includes(id);
-			});
-
-			if (column === undefined) {
-				return Object.keys(candidateGroups).find((key) => {
-					return candidateGroups[key].includes(id);
-				});
-			} else {
-				return column;
-			}
 		}
+
+		const column = Object.keys(groupColumns).find((key) => {
+			return groupColumns[key].includes(id);
+		});
+
+		if (column !== undefined) {
+			return column;
+		}
+
+		if (id in candidateGroups) {
+			return id;
+		}
+
+		return Object.keys(candidateGroups).find((key) => {
+			return candidateGroups[key].includes(id);
+		});
 	}
 
 	function handleDragOver({ active, over }) {
-		console.log(groupColumns.unused, candidateGroups.A, candidateGroups.B);
+		console.log(groupColumns.unused, candidateGroups["A Droppable"], candidateGroups["B Droppable"]);
 		debounceHandleDragOver(active, over, groupColumns, candidateGroups);
 	}
 
