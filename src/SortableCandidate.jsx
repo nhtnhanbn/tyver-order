@@ -24,11 +24,10 @@ function SortableCandidate({ id }) {
 					marginBottom: 10,
 					marginLeft: "auto",
 					marginRight: "auto",
-					width: 100,
+					width: 400,
 					textAlign: "center",
 					position: isDragging && "relative",
-					zIndex: 1,
-					border: "solid"
+					zIndex: 1
 				}
 			}
 			{...attributes}

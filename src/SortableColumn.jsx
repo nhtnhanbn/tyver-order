@@ -15,7 +15,7 @@ function SortableColumn({ children, id, items }) {
 				style={
 					{
 						background: "aqua",
-						width: 200,
+						width: 500,
 						textAlign: "center",
 						minHeight: 500
 					}

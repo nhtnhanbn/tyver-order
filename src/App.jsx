@@ -15,6 +15,7 @@ import { SortableCandidate } from "./SortableCandidate";
 import { SortableGroup } from "./SortableGroup";
 import { SortableColumn } from "./SortableColumn";
 import { droppableId } from "./droppableId";
+import viclegcogroups from "./viclegcogroups.json";
 // import "./App.css";
 
 function debounce(fn, delay) {
@@ -27,14 +28,16 @@ function debounce(fn, delay) {
 	}
 }
 
+const initialCandidateGroups = {};
+for (const groupId in viclegcogroups) {
+	initialCandidateGroups[droppableId(groupId)] = viclegcogroups[groupId];
+}
+
 function App() {
-	const [candidateGroups, setCandidateGroups] = useState({
-		"A Droppable": [1, 2, 3],
-		"B Droppable": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-	});
+	const [candidateGroups, setCandidateGroups] = useState(initialCandidateGroups);
 	const [groupColumns, setGroupColumns] = useState({
 		active: [],
-		unused: ["A", "B"]
+		unused: Object.keys(viclegcogroups)
 	});
 
 	const debounceHandleDragOver = useCallback(
@@ -159,17 +162,17 @@ function App() {
 				return candidateCollisions;
 			}
 
-			const groupCollisions = detectionAlgorithm({
-				active: active,
-				droppableContainers: filteredContainers.filter((container) => {
-					return (droppableId(container.id) in candidateGroups) && (container.id !== active.id);
-				}),
-				...args
-			});
+			// const groupCollisions = detectionAlgorithm({
+			// 	active: active,
+			// 	droppableContainers: filteredContainers.filter((container) => {
+			// 		return (droppableId(container.id) in candidateGroups) && (container.id !== active.id);
+			// 	}),
+			// 	...args
+			// });
 
-			if (groupCollisions.length > 0) {
-				return groupCollisions;
-			}
+			// if (groupCollisions.length > 0) {
+			// 	return groupCollisions;
+			// }
 
 			return detectionAlgorithm({
 				active: active,

@@ -28,8 +28,7 @@ function SortableGroup({ children, id, items }) {
 					padding: 10,
 					height: "auto",
 					position: isDragging && "relative",
-					zIndex: 1,
-					border: "solid"
+					zIndex: 1
 				}
 			}
 		>
@@ -70,7 +69,7 @@ function SortableGroup({ children, id, items }) {
 							{
 								background: "yellow",
 								textAlign: "center",
-								minHeight: "5em",
+								minHeight: "4em",
 								padding: "10px"
 							}
 						}
