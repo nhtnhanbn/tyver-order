@@ -127,8 +127,10 @@ function App() {
 		droppableContainers,
 		...args
 	}) {
+		const detectionAlgorithm = rectIntersection;
+
 		if (droppableId(active.id) in candidateGroups) {
-			return rectIntersection({
+			return detectionAlgorithm({
 				active,
 				droppableContainers: droppableContainers.filter((container) => {
 					return findContainer(container.id, groupColumns, candidateGroups) in groupColumns;
@@ -137,7 +139,7 @@ function App() {
 			});
 		}
 		
-		return rectIntersection({
+		return detectionAlgorithm({
 			active,
 			droppableContainers,
 			...args

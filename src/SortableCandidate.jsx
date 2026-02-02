@@ -15,7 +15,7 @@ function SortableCandidate({ id, collapsed }) {
 			ref={setNodeRef}
 			style={
 				{
-					transform: CSS.Transform.toString(transform),
+					transform: CSS.Translate.toString(transform),
 					transition,
 					touchAction: "none",
 					backgroundColor: "lime",

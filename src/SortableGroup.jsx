@@ -20,7 +20,7 @@ function SortableGroup({ children, id, items }) {
 			ref={setSortableNodeRef}
 			style={
 				{
-					transform: CSS.Transform.toString(transform),
+					transform: CSS.Translate.toString(transform),
 					transition,
 					background: "red",
 					margin: 10,
