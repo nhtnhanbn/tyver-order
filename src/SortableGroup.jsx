@@ -28,7 +28,8 @@ function SortableGroup({ children, id, items }) {
 					padding: 10,
 					height: "auto",
 					position: isDragging && "relative",
-					zIndex: 1
+					zIndex: 1,
+					border: "solid"
 				}
 			}
 		>
@@ -56,21 +57,16 @@ function SortableGroup({ children, id, items }) {
 					strategy={verticalListSortingStrategy}
 				>
 					<div
+						ref={setDroppableNodeRef}
 						style={
 							{
 								background: "yellow",
-								padding: 10,
-								textAlign: "center"
+								textAlign: "center",
+								minHeight: "5em"
 							}
 						}
 					>
-						{
-							children.length === 0
-							?
-							<div ref={setDroppableNodeRef}>Drop candidates here</div>
-							:
-							children
-						}
+						{children}
 					</div>
 				</SortableContext>
 			}

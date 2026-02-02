@@ -55,7 +55,6 @@ function App() {
 				droppableId(active.id) in candidateGroups &&
 				!(overContainer in groupColumns)
 			) {
-				console.log("pass");
 				return;
 			}
 
@@ -139,27 +138,52 @@ function App() {
 	}) {
 		const detectionAlgorithm = rectIntersection;
 
-		const activeContainer = findContainer(active.id, groupColumns, candidateGroups);
-		droppableContainers = droppableContainers.filter((container) => {
-			return container.id !== activeContainer;
-		});
+		// const activeContainer = findContainer(active.id, groupColumns, candidateGroups);
+		// droppableContainers = droppableContainers.filter((container) => {
+		// 	return container.id !== activeContainer;
+		// });
 
 		if (droppableId(active.id) in candidateGroups) {
-			console.log(droppableContainers.filter((container) => {
-					return findContainer(container.id, groupColumns, candidateGroups) in groupColumns;
-				}));
-			return detectionAlgorithm({
-				active,
-				droppableContainers: droppableContainers.filter((container) => {
-					return findContainer(container.id, groupColumns, candidateGroups) in groupColumns;
+			const filteredContainers = droppableContainers.filter((container) => {
+				return findContainer(container.id, groupColumns, candidateGroups) in groupColumns;
+			});
+
+			const candidateCollisions = detectionAlgorithm({
+				active: active,
+				droppableContainers: filteredContainers.filter((container) => {
+					return !(container.id in groupColumns) && !(droppableId(container.id) in candidateGroups);
 				}),
 				...args
 			});
+
+			if (candidateCollisions.length > 0) {
+				return candidateCollisions;
+			}
+
+			return detectionAlgorithm({
+				active: active,
+				droppableContainers: filteredContainers,
+				...args
+			});
+		} else {console.log(droppableContainers.filter((container) => {
+					return container.id in candidateGroups || container.id === active.id;
+				}));
+			// const collisions = detectionAlgorithm({
+			// 	active: active,
+			// 	droppableContainers: droppableContainers.filter((container) => {
+			// 		return container.id in candidateGroups || container.id === active.id;
+			// 	}),
+			// 	...args
+			// });console.log(collisions);
+			
+			// if (collisions.length > 0) {
+			// 	return collisions;
+			// }
 		}
 		
 		return detectionAlgorithm({
-			active,
-			droppableContainers,
+			active: active,
+			droppableContainers: droppableContainers,
 			...args
 		});
 	}

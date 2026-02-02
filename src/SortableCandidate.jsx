@@ -27,7 +27,8 @@ function SortableCandidate({ id }) {
 					width: 100,
 					textAlign: "center",
 					position: isDragging && "relative",
-					zIndex: 1
+					zIndex: 1,
+					border: "solid"
 				}
 			}
 			{...attributes}
