@@ -69,8 +69,15 @@ function App() {
 				}
 
 				if (overContainer in groupColumns) {
-					if (!newGroupColumns[overContainer].includes(active.id)) {
-						newGroupColumns[overContainer] = [...newGroupColumns[overContainer], active.id];
+					const overItems = newGroupColumns[overContainer];
+					if (!overItems.includes(active.id)) {
+						newGroupColumns[overContainer] = [...overItems, active.id];
+						if (over.id !== overContainer) { // not root droppable
+							const items = newGroupColumns[overContainer];
+							const oldIndex = items.length - 1;
+							const newIndex = items.indexOf(over.id);
+							newGroupColumns[overContainer] = arrayMove(items, oldIndex, newIndex);
+						}
 					}
 				}
 
@@ -86,8 +93,15 @@ function App() {
 					});
 				}
 				if (!(overContainer in groupColumns)) {
-					if (!newCandidateGroups[overContainer].includes(active.id)) {
+					const overItems = newCandidateGroups[overContainer];
+					if (!overItems.includes(active.id)) {
 						newCandidateGroups[overContainer] = [...newCandidateGroups[overContainer], active.id];
+						if (over.id !== overContainer) { // not root droppable
+							const items = newCandidateGroups[overContainer];
+							const oldIndex = items.length - 1;
+							const newIndex = items.indexOf(over.id);
+							newCandidateGroups[overContainer] = arrayMove(items, oldIndex, newIndex);
+						}
 					}
 				}
 
@@ -104,13 +118,9 @@ function App() {
 				return (
 					<SortableGroup key={groupId} id={groupId} items={candidateGroups[droppableGroupId]}>
 						{
-							(collapsed) => {
-								return (
-										candidateGroups[droppableGroupId].map((candidateId) => {
-											return <SortableCandidate key={candidateId} id={candidateId} collapsed={collapsed} />;
-										})
-								);
-							}
+							candidateGroups[droppableGroupId].map((candidateId) => {
+								return <SortableCandidate key={candidateId} id={candidateId} />;
+							})
 						}
 					</SortableGroup>
 				);

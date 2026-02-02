@@ -1,7 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-function SortableCandidate({ id, collapsed }) {
+function SortableCandidate({ id }) {
 	const {
 		attributes,
 		listeners,
@@ -23,9 +23,8 @@ function SortableCandidate({ id, collapsed }) {
 					marginBottom: 10,
 					marginLeft: "auto",
 					marginRight: "auto",
-					width: 150,
-					textAlign: "center",
-					display: collapsed && "none"
+					width: 100,
+					textAlign: "center"
 				}
 			}
 			{...attributes}

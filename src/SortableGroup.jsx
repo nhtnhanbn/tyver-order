@@ -24,13 +24,13 @@ function SortableGroup({ children, id, items }) {
 					transition,
 					background: "red",
 					margin: 10,
+					padding: 10,
 					height: "auto"
 				}
 			}
 		>
 			<div style={
 				{
-					margin: 10,
 					display: "flex",
 					justifyContent: "space-between"
 				}
@@ -45,21 +45,32 @@ function SortableGroup({ children, id, items }) {
 					{ collapsed ? "+" : "-" }
 				</div>
 			</div>
-			<SortableContext
-				items={items}
-				strategy={verticalListSortingStrategy}
-			>
-				<div
-					ref={setDroppableNodeRef}
-					style={
-						{
-							background: "yellow"
-						}
-					}
+
+			{
+				!collapsed &&
+				<SortableContext
+					items={items}
+					strategy={verticalListSortingStrategy}
 				>
-					{children(collapsed)}
-				</div>
-			</SortableContext>
+					<div
+						style={
+							{
+								background: "yellow",
+								padding: 10,
+								textAlign: "center"
+							}
+						}
+					>
+						{
+							children.length === 0
+							?
+							<div ref={setDroppableNodeRef}>Drop candidates here</div>
+							:
+							children
+						}
+					</div>
+				</SortableContext>
+			}
 		</div>
 	);
 }
