@@ -19,7 +19,11 @@ function SortableCandidate({ id, collapsed }) {
 					transition,
 					touchAction: "none",
 					backgroundColor: "lime",
-					margin: 10,
+					marginTop: 10,
+					marginBottom: 10,
+					marginLeft: "auto",
+					marginRight: "auto",
+					width: 150,
 					textAlign: "center",
 					display: collapsed && "none"
 				}

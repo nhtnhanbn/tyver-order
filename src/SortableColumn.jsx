@@ -15,6 +15,7 @@ function SortableColumn({ children, id, items }) {
 				style={
 					{
 						background: "blue",
+						width: 200,
 						margin: 10
 					}
 				}
