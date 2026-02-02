@@ -14,11 +14,14 @@ function SortableColumn({ children, id, items }) {
 				ref={setNodeRef}
 				style={
 					{
-						background: "blue",
-						width: 200
+						background: "aqua",
+						width: 200,
+						textAlign: "center",
+						minHeight: 500
 					}
 				}
 			>
+				{id}
 				{children}
 			</div>
 		</SortableContext>

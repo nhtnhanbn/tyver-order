@@ -39,7 +39,15 @@ function SortableGroup({ children, id, items }) {
 					justifyContent: "space-between"
 				}
 			}>
-				<button {...attributes} {...listeners}>D</button>
+				<button
+					style={
+						{
+							touchAction: "none",
+						}
+					}
+					{...attributes}
+					{...listeners}
+				>D</button>
 				{id}
 				<div onClick={
 					() => {

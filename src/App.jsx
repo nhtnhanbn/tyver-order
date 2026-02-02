@@ -45,7 +45,6 @@ function App() {
 			
 			const activeContainer = findContainer(active.id, groupColumns, candidateGroups);
 			const overContainer = findContainer(over.id, groupColumns, candidateGroups);
-			console.log(active.id, over.id, activeContainer, overContainer);
 
 			if (activeContainer === overContainer) {
 				return;
@@ -156,7 +155,6 @@ function App() {
 				...args
 			});
 
-			console.log(candidateCollisions);
 			if (candidateCollisions.length > 0) {
 				return candidateCollisions;
 			}
@@ -178,20 +176,6 @@ function App() {
 				droppableContainers: filteredContainers,
 				...args
 			});
-		} else {console.log(droppableContainers.filter((container) => {
-					return container.id in candidateGroups || container.id === active.id;
-				}));
-			// const collisions = detectionAlgorithm({
-			// 	active: active,
-			// 	droppableContainers: droppableContainers.filter((container) => {
-			// 		return container.id in candidateGroups || container.id === active.id;
-			// 	}),
-			// 	...args
-			// });console.log(collisions);
-			
-			// if (collisions.length > 0) {
-			// 	return collisions;
-			// }
 		}
 		
 		return detectionAlgorithm({
@@ -218,9 +202,12 @@ function App() {
 			>
 				<div 
 					style={
-						{ display: "flex", flexDirection: "row", alignItems: "start" }
+						{ display: "flex", flexDirection: "row", alignItems: "start", gap: 10 }
 					}
 				>
+					<SortableColumn id="active" items={groupColumns.active}>
+						{displayGroups(groupColumns.active)}
+					</SortableColumn>
 					<SortableColumn id="unused" items={groupColumns.unused}>
 						{displayGroups(groupColumns.unused)}
 					</SortableColumn>
@@ -229,7 +216,20 @@ function App() {
 			<button
 				onClick={
 					() => {
-						console.log(candidateGroups);
+						const preferences = {};
+						let counter = 1;
+						for (const item of groupColumns.active) {
+							if (droppableId(item) in candidateGroups) {
+								for (const candidate of candidateGroups[droppableId(item)]) {
+									preferences[candidate] = counter;
+									counter++;
+								}
+							} else {
+								preferences[item] = counter;
+								counter++;
+							}
+						}
+						console.log(preferences);
 					}
 				}
 			>Submit</button>
@@ -259,7 +259,6 @@ function App() {
 	}
 
 	function handleDragOver({ active, over }) {
-		console.log(groupColumns.unused, candidateGroups["A Droppable"], candidateGroups["B Droppable"]);
 		debounceHandleDragOver(active, over, groupColumns, candidateGroups);
 	}
 
@@ -270,8 +269,6 @@ function App() {
 
 		const activeContainer = findContainer(active.id, groupColumns, candidateGroups);
 		const overContainer = findContainer(over.id, groupColumns, candidateGroups);
-
-		console.log(active.id, over.id, activeContainer, overContainer);
 
 		if (active.id !== over.id && activeContainer === overContainer) {
 			if (overContainer in groupColumns) {
