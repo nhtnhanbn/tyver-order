@@ -4,6 +4,7 @@ import { CSS } from "@dnd-kit/utilities";
 function SortableCandidate({ id }) {
 	const {
 		attributes,
+		isDragging,
 		listeners,
 		setNodeRef,
 		transform,
@@ -24,7 +25,9 @@ function SortableCandidate({ id }) {
 					marginLeft: "auto",
 					marginRight: "auto",
 					width: 100,
-					textAlign: "center"
+					textAlign: "center",
+					position: isDragging && "relative",
+					zIndex: 1
 				}
 			}
 			{...attributes}

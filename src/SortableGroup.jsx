@@ -7,6 +7,7 @@ import { droppableId } from "./droppableId";
 function SortableGroup({ children, id, items }) {
 	const {
 		attributes,
+		isDragging,
 		listeners,
 		setNodeRef: setSortableNodeRef,
 		transform,
@@ -25,7 +26,9 @@ function SortableGroup({ children, id, items }) {
 					background: "red",
 					margin: 10,
 					padding: 10,
-					height: "auto"
+					height: "auto",
+					position: isDragging && "relative",
+					zIndex: 1
 				}
 			}
 		>

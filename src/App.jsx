@@ -139,7 +139,15 @@ function App() {
 	}) {
 		const detectionAlgorithm = rectIntersection;
 
+		const activeContainer = findContainer(active.id, groupColumns, candidateGroups);
+		droppableContainers = droppableContainers.filter((container) => {
+			return container.id !== activeContainer;
+		});
+
 		if (droppableId(active.id) in candidateGroups) {
+			console.log(droppableContainers.filter((container) => {
+					return findContainer(container.id, groupColumns, candidateGroups) in groupColumns;
+				}));
 			return detectionAlgorithm({
 				active,
 				droppableContainers: droppableContainers.filter((container) => {
