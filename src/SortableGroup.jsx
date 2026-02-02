@@ -62,7 +62,8 @@ function SortableGroup({ children, id, items }) {
 							{
 								background: "yellow",
 								textAlign: "center",
-								minHeight: "5em"
+								minHeight: "5em",
+								padding: "10px"
 							}
 						}
 					>

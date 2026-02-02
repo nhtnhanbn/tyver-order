@@ -156,8 +156,21 @@ function App() {
 				...args
 			});
 
+			console.log(candidateCollisions);
 			if (candidateCollisions.length > 0) {
 				return candidateCollisions;
+			}
+
+			const groupCollisions = detectionAlgorithm({
+				active: active,
+				droppableContainers: filteredContainers.filter((container) => {
+					return (droppableId(container.id) in candidateGroups) && (container.id !== active.id);
+				}),
+				...args
+			});
+
+			if (groupCollisions.length > 0) {
+				return groupCollisions;
 			}
 
 			return detectionAlgorithm({
