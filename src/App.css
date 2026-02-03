@@ -18,27 +18,35 @@ table {
 }
 
 td {
-	border: solid 0.2em;
+	border: solid 0.1em;
 	vertical-align: top;
-	padding: 0.2em;
+	padding: 0.5em;
 }
 
-.row {
-	margin-top: 0.2em;
+.candidate-box {
 	display: flex;
+	flex-direction: row;
+	gap: 2em;
+}
+
+.candidate-row {
+	margin-top: 0.5em;
+	display: flex;
+	flex-direction: row;
 	align-items: center;
 }
 
 .square {
-	box-shadow: inset 0 0 0 2px black;
-	line-height: 2em;
-	height: 2em;
-	width: 2em;
-	margin-right: 0.2em;
+	border: solid 0.1em;
+	line-height: 1.8em;
+	height: 1.8em;
+	width: 1.8em;
+	margin-right: 0.5em;
 	flex-shrink: 0;
+	font-weight: bold;
 }
 
-.candidateName {
+.candidate-name {
 	text-align: left;
 }
 

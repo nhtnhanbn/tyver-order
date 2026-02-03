@@ -34,9 +34,22 @@ for (const groupId of groups) {
 	initialCandidateGroups[droppableId(groupId)] = viclegcogroups.data[groupId];
 }
 
-const ballotRows = [];
+const rowSplit = [];
 for (let i = 0; i < groups.length; i += viclegcogroups.groupsPerRow) {
-	ballotRows.push(groups.slice(i, i+viclegcogroups.groupsPerRow));
+	rowSplit.push(groups.slice(i, i+viclegcogroups.groupsPerRow));
+}
+
+const columnSplit = {};
+for (const groupId of groups) {
+	const candidates = viclegcogroups.data[groupId];
+	if ("candidatesPerColumn" in viclegcogroups) {
+		columnSplit[groupId] = [];
+		for (let i = 0; i < candidates.length; i += viclegcogroups.candidatesPerColumn) {
+			columnSplit[groupId].push(candidates.slice(i, i+viclegcogroups.candidatesPerColumn));
+		}
+	} else {
+		columnSplit[groupId] = [candidates];
+	}
 }
 
 function App() {
@@ -195,18 +208,33 @@ function App() {
 	}
 
 	const preferences = {};
-	let counter = 1;
+	let preferenceCount = 0;
 	for (const item of groupColumns.active) {
 		if (droppableId(item) in candidateGroups) {
 			for (const candidate of candidateGroups[droppableId(item)]) {
-				preferences[candidate] = counter;
-				counter++;
+				preferenceCount++;
+				preferences[candidate] = preferenceCount;
 			}
 		} else {
-			preferences[item] = counter;
-			counter++;
+			preferenceCount++;
+			preferences[item] = preferenceCount;
 		}
 	}
+
+	let formality;
+	if (preferenceCount >= viclegcogroups.minFormal) {
+		formality = "FORMAL";
+	} else if (preferenceCount >= viclegcogroups.minSaved) {
+		formality = "SAVED";
+	} else {
+		formality = "INFORMAL";
+	}
+
+	const outlineValues = formality === "FORMAL" ? {} : {
+		outlineStyle: formality === "INFORMAL" ? "solid" : "double",
+		outlineWidth: "0.2em",
+		outlineColor: "red"
+	};
 
 	return (
 		<>
@@ -244,10 +272,44 @@ function App() {
 					</SortableColumn>
 				</div>
 			</DndContext>
-			<table>
+			{
+				formality === "INFORMAL" &&
+				<p
+					style={
+						{
+							color: "red",
+							fontWeight: "bold"
+						}
+					}
+				>
+					Fewer than {viclegcogroups.minFormal} preferences. Ballot is informal and will not be counted.
+				</p>
+			}
+			{
+				formality === "SAVED" &&
+				<p
+					style={
+						{
+							color: "red"
+						}
+					}
+				>
+					Fewer than {viclegcogroups.minFormal} preferences. Ballot is informal.
+				</p>
+			}
+			<p>
+				<button
+					onClick={print}
+					disabled={formality==="INFORMAL"}
+				>
+					Save or Print
+				</button>
+			</p>
+			<p>Generated ballot guide below! Use the print dialog in landscape layout to print a paper copy or save a PDF to your device - you may need to adjust the scale and paper size to fit the whole ballot guide.</p>
+			<table style={outlineValues}>
 				<tbody>
 					{
-						ballotRows.map((ballotRow, index) => {
+						rowSplit.map((ballotRow, index) => {
 							return (
 								<tr key={index}>
 									{
@@ -255,16 +317,26 @@ function App() {
 											return (
 												<td key={groupId}>
 													<b>{groupId}</b>
-													{
-														viclegcogroups.data[groupId].map((candidateId) => {
-															return (
-																<div className="row" key={candidateId}>
-																	<div className="square">{preferences[candidateId]}</div>
-																	<div className="candidateName">{candidateId}</div>
-																</div>
-															);
-														})
-													}
+													<div className="candidate-box">
+														{
+															columnSplit[groupId].map((column, columnIndex) => {
+																return (
+																	<div key={columnIndex}>
+																		{
+																			column.map((candidateId) => {
+																				return (
+																					<div className="candidate-row" key={candidateId}>
+																						<div className="square">{preferences[candidateId]}</div>
+																						<div className="candidate-name">{candidateId}</div>
+																					</div>
+																				);
+																			})
+																		}
+																	</div>
+																);
+															})
+														}
+													</div>
 												</td>
 											);
 										})
@@ -275,9 +347,6 @@ function App() {
 					}
 				</tbody>
 			</table>
-			<button
-				onClick={print}
-			>Save or Print</button>
 		</>
 	);
 
