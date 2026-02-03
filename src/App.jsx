@@ -29,15 +29,21 @@ function debounce(fn, delay) {
 }
 
 const initialCandidateGroups = {};
-for (const groupId in viclegcogroups) {
-	initialCandidateGroups[droppableId(groupId)] = viclegcogroups[groupId];
+const groups = Object.keys(viclegcogroups.data);
+for (const groupId of groups) {
+	initialCandidateGroups[droppableId(groupId)] = viclegcogroups.data[groupId];
+}
+
+const ballotRows = [];
+for (let i = 0; i < groups.length; i += viclegcogroups.groupsPerRow) {
+	ballotRows.push(groups.slice(i, i+viclegcogroups.groupsPerRow));
 }
 
 function App() {
 	const [candidateGroups, setCandidateGroups] = useState(initialCandidateGroups);
 	const [groupColumns, setGroupColumns] = useState({
 		active: [],
-		unused: Object.keys(viclegcogroups)
+		unused: groups
 	});
 
 	const debounceHandleDragOver = useCallback(
@@ -188,6 +194,20 @@ function App() {
 		});
 	}
 
+	const preferences = {};
+	let counter = 1;
+	for (const item of groupColumns.active) {
+		if (droppableId(item) in candidateGroups) {
+			for (const candidate of candidateGroups[droppableId(item)]) {
+				preferences[candidate] = counter;
+				counter++;
+			}
+		} else {
+			preferences[item] = counter;
+			counter++;
+		}
+	}
+
 	return (
 		<>
 			<DndContext
@@ -224,26 +244,40 @@ function App() {
 					</SortableColumn>
 				</div>
 			</DndContext>
-			<button
-				onClick={
-					() => {
-						const preferences = {};
-						let counter = 1;
-						for (const item of groupColumns.active) {
-							if (droppableId(item) in candidateGroups) {
-								for (const candidate of candidateGroups[droppableId(item)]) {
-									preferences[candidate] = counter;
-									counter++;
-								}
-							} else {
-								preferences[item] = counter;
-								counter++;
-							}
-						}
-						console.log(preferences);
+			<table>
+				<tbody>
+					{
+						ballotRows.map((ballotRow, index) => {
+							return (
+								<tr key={index}>
+									{
+										ballotRow.map((groupId) => {
+											return (
+												<td key={groupId}>
+													<b>{groupId}</b>
+													{
+														viclegcogroups.data[groupId].map((candidateId) => {
+															return (
+																<div className="row" key={candidateId}>
+																	<div className="square">{preferences[candidateId]}</div>
+																	<div className="candidateName">{candidateId}</div>
+																</div>
+															);
+														})
+													}
+												</td>
+											);
+										})
+									}
+								</tr>
+							);
+						})
 					}
-				}
-			>Submit</button>
+				</tbody>
+			</table>
+			<button
+				onClick={print}
+			>Save or Print</button>
 		</>
 	);
 
