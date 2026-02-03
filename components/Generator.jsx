@@ -28,28 +28,33 @@ function debounce(fn, delay) {
 }
 
 function Generator({ configuration }) {
-	const groups = Object.keys(configuration.data);
-	const rowSplit = [];
+	const groups = [], rowSplit = [], columnSplit = {};
+	let validConfiguration = true;
+	try {
+		groups.push(...Object.keys(configuration.data));
 
-	if ("groupsPerRow" in configuration) {
-		for (let i = 0; i < groups.length; i += configuration.groupsPerRow) {
-			rowSplit.push(groups.slice(i, i+configuration.groupsPerRow));
-		}
-	} else {
-		rowSplit.push(groups);
-	}
-
-	const columnSplit = {};
-	for (const groupId of groups) {
-		const candidates = configuration.data[groupId];
-		if ("candidatesPerColumn" in configuration) {
-			columnSplit[groupId] = [];
-			for (let i = 0; i < candidates.length; i += configuration.candidatesPerColumn) {
-				columnSplit[groupId].push(candidates.slice(i, i+configuration.candidatesPerColumn));
+		if ("groupsPerRow" in configuration) {
+			for (let i = 0; i < groups.length; i += configuration.groupsPerRow) {
+				rowSplit.push(groups.slice(i, i+configuration.groupsPerRow));
 			}
 		} else {
-			columnSplit[groupId] = [candidates];
+			rowSplit.push(groups);
 		}
+
+		for (const groupId of groups) {
+			const candidates = configuration.data[groupId];
+			if ("candidatesPerColumn" in configuration) {
+				columnSplit[groupId] = [];
+				for (let i = 0; i < candidates.length; i += configuration.candidatesPerColumn) {
+					columnSplit[groupId].push(candidates.slice(i, i+configuration.candidatesPerColumn));
+				}
+			} else {
+				columnSplit[groupId] = [candidates];
+			}
+		}
+	} catch {
+		validConfiguration = false;
+		alert("Invalid configuration");
 	}
 
 	const [candidateGroups, setCandidateGroups] = useState(() => {
@@ -135,6 +140,19 @@ function Generator({ configuration }) {
 		}, 100),
 		[]
 	);
+
+	const sensors = useSensors(
+		useSensor(PointerSensor, {
+			activationConstraint: { distance: 0.01 }
+		}),
+		useSensor(KeyboardSensor, {
+			coordinateGetter: sortableKeyboardCoordinates,
+		})
+	);
+
+	if (!validConfiguration) {
+		return;
+	}
 
 	function displayGroups(groups) {
 		return groups.map((groupId) => {
@@ -244,16 +262,7 @@ function Generator({ configuration }) {
 	return (
 		<>
 			<DndContext
-				sensors={
-					useSensors(
-						useSensor(PointerSensor, {
-							activationConstraint: { distance: 0.01 }
-						}),
-						useSensor(KeyboardSensor, {
-							coordinateGetter: sortableKeyboardCoordinates,
-						})
-					)
-				}
+				sensors={sensors}
 				onDragEnd={handleDragEnd}
 				onDragOver={handleDragOver}
 				collisionDetection={prioritisedCollisionDetection}
@@ -307,6 +316,18 @@ function Generator({ configuration }) {
 					}
 				>
 					Fewer than {configuration.minFormal} preferences. Ballot is informal.
+				</p>
+			}
+			{
+				formality === "FORMAL" &&
+				<p
+					style={
+						{
+							color: "green"
+						}
+					}
+				>
+					Ballot is formal.
 				</p>
 			}
 			<div className="overflow">

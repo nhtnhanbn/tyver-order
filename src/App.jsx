@@ -2,22 +2,43 @@ import { useState } from "react";
 import { Generator } from "../components/Generator";
 import "./App.css";
 
+const placeholder = {
+	"minSaved": 2,
+	"minFormal": 4,
+	"groupsPerRow": 2,
+	"candidatesPerGroup": 6,
+	"data": {
+		"Group A": [
+			"Candidate 1",
+			"Candidate 2"
+		],
+		"Group B": [
+			"Candidate 3"
+		],
+		"Ungrouped": [
+			"Candidate 4"
+		]
+	}
+};
+
 function App() {
-	const [configuration, setConfiguration] = useState({
-		minSaved: 0,
-		minFormal: 0,
-		groupsPerRow: 0,
-		data: {}
-	});
+	const [configuration, setConfiguration] = useState(placeholder);
 	
 	return (
 		<>
 			<label htmlFor="configuration">Paste your configuration:</label>
-			<textarea id="configuration"></textarea>
+			<textarea
+				id="configuration"
+				placeholder={JSON.stringify(placeholder, null, 4)}
+			></textarea>
 			<button
 				onClick={
 					() => {
-						setConfiguration(JSON.parse(document.querySelector("#configuration").value))
+						try {
+							setConfiguration(JSON.parse(document.querySelector("#configuration").value));
+						} catch {
+							alert("Invalid configuration");
+						}
 					}
 				}
 			>Apply configuration</button>

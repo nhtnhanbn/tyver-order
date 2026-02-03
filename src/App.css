@@ -3,3 +3,7 @@ textarea, label {
   max-width: 1400px;
   text-align: left;
 }
+
+textarea {
+	min-height: 21em;
+}
