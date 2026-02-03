@@ -30,8 +30,13 @@ function debounce(fn, delay) {
 function Generator({ configuration }) {
 	const groups = Object.keys(configuration.data);
 	const rowSplit = [];
-	for (let i = 0; i < groups.length; i += configuration.groupsPerRow) {
-		rowSplit.push(groups.slice(i, i+configuration.groupsPerRow));
+
+	if ("groupsPerRow" in configuration) {
+		for (let i = 0; i < groups.length; i += configuration.groupsPerRow) {
+			rowSplit.push(groups.slice(i, i+configuration.groupsPerRow));
+		}
+	} else {
+		rowSplit.push(groups);
 	}
 
 	const columnSplit = {};
@@ -231,9 +236,9 @@ function Generator({ configuration }) {
 	}
 
 	const outlineValues = formality === "FORMAL" ? {} : {
-		outlineStyle: formality === "INFORMAL" ? "solid" : "double",
-		outlineWidth: "0.2em",
-		outlineColor: "red"
+		borderStyle: formality === "INFORMAL" ? "solid" : "double",
+		borderWidth: "0.2em",
+		borderColor: "red"
 	};
 
 	return (
@@ -272,6 +277,13 @@ function Generator({ configuration }) {
 					</SortableColumn>
 				</div>
 			</DndContext>
+			<p>Generated ballot guide below! Use the print dialog in landscape layout to print a paper copy or save a PDF to your device - you may need to decrease the scale or increase the paper size to fit the whole ballot guide.</p>
+			<button
+				onClick={print}
+				disabled={formality==="INFORMAL"}
+			>
+				Save or Print
+			</button>
 			{
 				formality === "INFORMAL" &&
 				<p
@@ -285,13 +297,6 @@ function Generator({ configuration }) {
 					Fewer than {configuration.minFormal} preferences. Ballot is informal and will not be counted.
 				</p>
 			}
-			<p>Generated ballot guide below! Use the print dialog in landscape layout to print a paper copy or save a PDF to your device - you may need to decrease the scale or increase the paper size to fit the whole ballot guide.</p>
-			<button
-				onClick={print}
-				disabled={formality==="INFORMAL"}
-			>
-				Save or Print
-			</button>
 			{
 				formality === "SAVED" &&
 				<p
@@ -304,47 +309,49 @@ function Generator({ configuration }) {
 					Fewer than {configuration.minFormal} preferences. Ballot is informal.
 				</p>
 			}
-			<table style={outlineValues}>
-				<tbody>
-					{
-						rowSplit.map((ballotRow, index) => {
-							return (
-								<tr key={index}>
-									{
-										ballotRow.map((groupId) => {
-											return (
-												<td key={groupId}>
-													<b>{groupId}</b>
-													<div className="candidate-box">
-														{
-															columnSplit[groupId].map((column, columnIndex) => {
-																return (
-																	<div key={columnIndex}>
-																		{
-																			column.map((candidateId) => {
-																				return (
-																					<div className="candidate-row" key={candidateId}>
-																						<div className="square">{preferences[candidateId]}</div>
-																						<div className="candidate-name">{candidateId}</div>
-																					</div>
-																				);
-																			})
-																		}
-																	</div>
-																);
-															})
-														}
-													</div>
-												</td>
-											);
-										})
-									}
-								</tr>
-							);
-						})
-					}
-				</tbody>
-			</table>
+			<div className="overflow">
+				<table style={outlineValues}>
+					<tbody>
+						{
+							rowSplit.map((ballotRow, index) => {
+								return (
+									<tr key={index}>
+										{
+											ballotRow.map((groupId) => {
+												return (
+													<td key={groupId}>
+														<b>{groupId}</b>
+														<div className="candidate-box">
+															{
+																columnSplit[groupId].map((column, columnIndex) => {
+																	return (
+																		<div key={columnIndex}>
+																			{
+																				column.map((candidateId) => {
+																					return (
+																						<div className="candidate-row" key={candidateId}>
+																							<div className="square">{preferences[candidateId]}</div>
+																							<div className="candidate-name">{candidateId}</div>
+																						</div>
+																					);
+																				})
+																			}
+																		</div>
+																	);
+																})
+															}
+														</div>
+													</td>
+												);
+											})
+										}
+									</tr>
+								);
+							})
+						}
+					</tbody>
+				</table>
+			</div>
 		</>
 	);
 
