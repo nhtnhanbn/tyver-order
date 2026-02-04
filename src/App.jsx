@@ -35,7 +35,9 @@ function App() {
 				onClick={
 					() => {
 						try {
-							setConfiguration(JSON.parse(document.querySelector("#configuration").value));
+							if (confirm("Applying a new configuration will reset your preferences. Continue?")) {
+								setConfiguration(JSON.parse(document.querySelector("#configuration").value));
+							}
 						} catch {
 							alert("Invalid configuration");
 						}
