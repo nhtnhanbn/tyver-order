@@ -1,9 +1,18 @@
-textarea, label {
-  width: 100vw;
+textarea, .config-label {
+  width: 95vw;
   max-width: 1400px;
   text-align: left;
 }
 
 textarea {
-	min-height: 21em;
+	min-height: 22em;
+}
+
+.config-label {
+	display: flex;
+	justify-content: space-between;
+}
+
+.config-label a {
+	text-align: right;
 }

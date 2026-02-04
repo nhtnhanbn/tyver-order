@@ -15,8 +15,9 @@ function SortableColumn({ children, id, items }) {
 				style={
 					{
 						background: "aqua",
-						width: "50vw",
-						maxWidth: 700
+						width: "45vw",
+						maxWidth: 700,
+						paddingBottom: "2em"
 					}
 				}
 			>

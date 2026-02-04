@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Configurations - Tyver Order</title>
+	</head>
+
+	<body>
+		<a href="/order/">Back</a>
+
+		<h1>Configurations</h1>
+
+		<p>Note: applying a new configuration resets all preferences previously entered.</p>
+
+		<h2>Sample configurations</h2>
+		<p>You can copy these configurations and paste them directly on the generator page.</p>
+		<ul>
+			<li><a href="/order/vic/2022/btl/north-eastern-metropolitan/configuration.json">Victorian state election 2022 - Legislative Council - below the line - North-Eastern Metropolitan Region</a></li>
+		</ul>
+
+		<h2>Format description</h2>
+		<p>Your configuration includes your input data - that is, your candidates and the groups (also known as parties or tickets) that they belong to - as well as properties relating to the ballot layout and formality requirements.</p>
+		<p>
+			A configuration is a JSON string that has the following properties:
+			<ul>
+				<li><code>minSaved</code>: The minimum number of preferences required for a ballot to be counted,</li>
+				<li><code>minFormal</code>: The minimum number of preferences required for a ballot to be counted as formal.</li>
+				<li><code>groupsPerRow</code> (optional): The maximum number of group boxes in a row before wrapping. If absent, infinity.</li>
+				<li><code>candidatesPerColumn</code> (optional): The maximum number of candidates in a column within a group box before wrapping. If absent, infinity.</li>
+				<li><code>data</code>: A JSON object of the grouped candidates. The keys are the group identifiers. For each group, the value is an array of candidate identifiers. Group and candidate identifiers must be unique. A candidate identifier cannot be the same as any group identifier. Group and candidate identifiers are also used as labels on the generated ballot guide.</li>
+			</ul>
+		</p>
+		<p>You can find sample configurations in the section above.</p>
+	</body>
+</html>

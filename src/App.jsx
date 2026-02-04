@@ -6,7 +6,7 @@ const placeholder = {
 	"minSaved": 2,
 	"minFormal": 4,
 	"groupsPerRow": 2,
-	"candidatesPerGroup": 6,
+	"candidatesPerColumn": 1,
 	"data": {
 		"Group A": [
 			"Candidate 1",
@@ -26,7 +26,10 @@ function App() {
 	
 	return (
 		<>
-			<label htmlFor="configuration">Paste your configuration:</label>
+			<div className="config-label">
+				<label htmlFor="configuration">Paste your configuration:</label>
+				<a href="configurations/">What is a configuration?</a>
+			</div>
 			<textarea
 				id="configuration"
 				placeholder={JSON.stringify(placeholder, null, 4)}
