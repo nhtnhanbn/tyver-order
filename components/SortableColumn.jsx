@@ -1,7 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
 import { verticalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 
-function SortableColumn({ children, id, items }) {
+function SortableColumn({ children, id, items, backgroundColor, borderValues }) {
 	const { setNodeRef } = useDroppable({ id: id });
 
 	return (
@@ -14,10 +14,12 @@ function SortableColumn({ children, id, items }) {
 				ref={setNodeRef}
 				style={
 					{
-						background: "aqua",
+						backgroundColor: backgroundColor,
 						width: "45vw",
 						maxWidth: 700,
-						paddingBottom: "2em"
+						paddingTop: 10,
+						paddingBottom: "2em",
+						...borderValues
 					}
 				}
 			>

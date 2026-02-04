@@ -65,8 +65,8 @@ function Generator({ configuration }) {
 		return initialCandidateGroups;
 	});
 	const [groupColumns, setGroupColumns] = useState({
-		active: [],
-		unused: groups
+		"Preference order": [],
+		"Unranked candidates": groups
 	});
 
 	const debounceHandleDragOver = useCallback(
@@ -232,7 +232,7 @@ function Generator({ configuration }) {
 
 	const preferences = {};
 	let preferenceCount = 0;
-	for (const item of groupColumns.active) {
+	for (const item of groupColumns["Preference order"]) {
 		if (droppableId(item) in candidateGroups) {
 			for (const candidate of candidateGroups[droppableId(item)]) {
 				preferenceCount++;
@@ -253,10 +253,10 @@ function Generator({ configuration }) {
 		formality = "INFORMAL";
 	}
 
-	const outlineValues = formality === "FORMAL" ? {} : {
-		borderStyle: formality === "INFORMAL" ? "solid" : "double",
+	const borderValues = {
+		borderStyle: formality === "SAVED" ? "double" : "solid",
 		borderWidth: "0.2em",
-		borderColor: "red"
+		borderColor: formality === "FORMAL" ? "green" : "red"
 	};
 
 	return (
@@ -278,11 +278,24 @@ function Generator({ configuration }) {
 						}
 					}
 				>
-					<SortableColumn id="active" items={groupColumns.active}>
-						{displayGroups(groupColumns.active)}
+					<SortableColumn
+						id="Preference order"
+						items={groupColumns["Preference order"]}
+						borderValues={borderValues}
+					>
+						{displayGroups(groupColumns["Preference order"])}
 					</SortableColumn>
-					<SortableColumn id="unused" items={groupColumns.unused}>
-						{displayGroups(groupColumns.unused)}
+					<SortableColumn
+						id="Unranked candidates"
+						items={groupColumns["Unranked candidates"]}
+						backgroundColor="grey"
+						borderValues={
+							{
+								border: "solid grey"
+							}
+						}
+					>
+						{displayGroups(groupColumns["Unranked candidates"])}
 					</SortableColumn>
 				</div>
 			</DndContext>
@@ -330,8 +343,8 @@ function Generator({ configuration }) {
 					Ballot is formal.
 				</p>
 			}
-			<div className="overflow">
-				<table style={outlineValues}>
+			<div className="ballot">
+				<table style={borderValues}>
 					<tbody>
 						{
 							rowSplit.map((ballotRow, index) => {

@@ -45,13 +45,17 @@ td {
 	text-align: left;
 }
 
-.overflow {
+.ballot {
 	max-width: 99vw;
 	overflow-x: auto;
 }
 
 @media print {
-	#root :not(table, table *) {
+	body :not(#root, #root *) {
+		display: none;
+	}
+
+	#root :not(.ballot, .ballot *) {
 		display: none;
 	}
 }

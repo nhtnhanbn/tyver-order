@@ -23,7 +23,7 @@ function SortableGroup({ children, id, items }) {
 				{
 					transform: CSS.Translate.toString(transform),
 					transition,
-					background: "red",
+					background: "silver",
 					margin: 10,
 					padding: 10,
 					height: "auto",
@@ -68,7 +68,6 @@ function SortableGroup({ children, id, items }) {
 						ref={setDroppableNodeRef}
 						style={
 							{
-								background: "yellow",
 								textAlign: "center",
 								minHeight: "4em",
 								padding: 10,
