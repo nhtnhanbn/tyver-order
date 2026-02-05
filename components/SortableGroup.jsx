@@ -37,7 +37,8 @@ function SortableGroup({ children, id, items }) {
 			<div style={
 				{
 					display: "flex",
-					justifyContent: "space-between"
+					justifyContent: "space-between",
+					textAlign: "left"
 				}
 			}>
 				{id}
@@ -49,8 +50,9 @@ function SortableGroup({ children, id, items }) {
 					}
 					style={
 						{
-							width: "1em",
-							cursor: "pointer"
+							cursor: "pointer",
+							flex: "0 0 1em",
+							textAlign: "center"
 						}
 					}
 				>
