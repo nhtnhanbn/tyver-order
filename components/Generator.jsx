@@ -276,12 +276,6 @@ function Generator({ configuration }) {
 		formality = "INFORMAL";
 	}
 
-	const borderValues = {
-		borderStyle: formality === "SAVED" ? "double" : "solid",
-		borderWidth: "0.2em",
-		borderColor: formality === "FORMAL" ? "green" : "red"
-	};
-
 	return (
 		<>
 			<DndContext
@@ -304,7 +298,13 @@ function Generator({ configuration }) {
 					<SortableColumn
 						id="Preference order"
 						items={groupColumns["Preference order"]}
-						borderValues={borderValues}
+						borderValues={
+							{
+								borderStyle: formality === "SAVED" ? "double" : "solid",
+								borderWidth: "0.2em",
+								borderColor: formality === "FORMAL" ? "green" : "red"
+							}
+						}
 					>
 						{displayGroups(groupColumns["Preference order"])}
 					</SortableColumn>
@@ -367,7 +367,7 @@ function Generator({ configuration }) {
 				</p>
 			}
 			<div className="ballot">
-				<table style={borderValues}>
+				<table>
 					<tbody>
 						{
 							rowSplit.map((ballotRow, index) => {

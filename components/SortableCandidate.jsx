@@ -18,7 +18,7 @@ function SortableCandidate({ id }) {
 				{
 					transform: CSS.Translate.toString(transform),
 					transition,
-					backgroundColor: "white",
+					backgroundColor: "gold",
 					marginTop: 10,
 					marginBottom: 10,
 					marginLeft: "auto",
