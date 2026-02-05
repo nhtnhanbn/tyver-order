@@ -29,20 +29,25 @@ function debounce(fn, delay) {
 
 function Generator({ configuration }) {
 	const groups = [], rowSplit = [], columnSplit = {};
+
+	const initialUnrankedCandidates = [];
+
 	let validConfiguration = true;
 	try {
-		groups.push(...Object.keys(configuration.data));
+		groups.push(...Object.keys(configuration.groups));
+		initialUnrankedCandidates.push(...groups);
 
 		if ("groupsPerRow" in configuration) {
-			for (let i = 0; i < groups.length; i += configuration.groupsPerRow) {
+			const ungroupedBoxIncrement = (configuration.ungrouped.length > 0 ? 1 : 0);
+			for (let i = 0; i < groups.length + ungroupedBoxIncrement; i += configuration.groupsPerRow) {
 				rowSplit.push(groups.slice(i, i+configuration.groupsPerRow));
 			}
 		} else {
-			rowSplit.push(groups);
+			rowSplit.push([...groups]);
 		}
 
 		for (const groupId of groups) {
-			const candidates = configuration.data[groupId];
+			const candidates = configuration.groups[groupId];
 			if ("candidatesPerColumn" in configuration) {
 				columnSplit[groupId] = [];
 				for (let i = 0; i < candidates.length; i += configuration.candidatesPerColumn) {
@@ -52,6 +57,24 @@ function Generator({ configuration }) {
 				columnSplit[groupId] = [candidates];
 			}
 		}
+		
+		if (configuration.ungrouped.length > 0) {
+			const groupId = "";
+
+			rowSplit[rowSplit.length-1].push(groupId);
+
+			const candidates = configuration.ungrouped;
+			if ("candidatesPerColumn" in configuration) {
+				columnSplit[groupId] = [];
+				for (let i = 0; i < candidates.length; i += configuration.candidatesPerColumn) {
+					columnSplit[groupId].push(candidates.slice(i, i+configuration.candidatesPerColumn));
+				}
+			} else {
+				columnSplit[groupId] = [candidates];
+			}
+
+			initialUnrankedCandidates.push(...candidates);
+		}
 	} catch {
 		validConfiguration = false;
 		alert("Invalid configuration");
@@ -60,13 +83,13 @@ function Generator({ configuration }) {
 	const [candidateGroups, setCandidateGroups] = useState(() => {
 		const initialCandidateGroups = {};
 		for (const groupId of groups) {
-			initialCandidateGroups[droppableId(groupId)] = configuration.data[groupId];
+			initialCandidateGroups[droppableId(groupId)] = configuration.groups[groupId];
 		}
 		return initialCandidateGroups;
 	});
 	const [groupColumns, setGroupColumns] = useState({
 		"Preference order": [],
-		"Unranked candidates": groups
+		"Unranked candidates": [...initialUnrankedCandidates]
 	});
 
 	const debounceHandleDragOver = useCallback(

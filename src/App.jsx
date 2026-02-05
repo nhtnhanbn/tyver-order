@@ -7,18 +7,18 @@ const placeholder = {
 	"minFormal": 4,
 	"groupsPerRow": 2,
 	"candidatesPerColumn": 1,
-	"data": {
+	"groups": {
 		"Group A": [
 			"Candidate 1",
 			"Candidate 2"
 		],
 		"Group B": [
 			"Candidate 3"
-		],
-		"Ungrouped": [
-			"Candidate 4"
 		]
-	}
+	},
+	"ungrouped": [
+		"Candidate 4"
+	]
 };
 
 function App() {

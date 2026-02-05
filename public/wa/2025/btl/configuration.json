@@ -2,7 +2,7 @@
 	"minSaved": 20,
 	"minFormal": 20,
 	"candidatesPerColumn": 19,
-	"data": {
+	"groups": {
 		"A Sustainable Australia Party - Anti-corruption": [
 			"MINSON, Daniel",
 			"MATHESON, Julie",
@@ -169,13 +169,13 @@
 			"TRUMP, Aussie",
 			"PERROT, Adrian",
 			"BALL, Tony"
-		],
-		"N No Square": [
-			"SUDHIR, Sudhir",
-			"SMITH, Christiane",
-			"McRAE, Jennifer",
-			"McLERNON, Peter",
-			"WALKER, Steve"
 		]
-	}
+	},
+	"ungrouped": [
+		"SUDHIR, Sudhir",
+		"SMITH, Christiane",
+		"McRAE, Jennifer",
+		"McLERNON, Peter",
+		"WALKER, Steve"
+	]
 }

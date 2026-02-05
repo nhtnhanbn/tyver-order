@@ -2,7 +2,7 @@
 	"minSaved": 5,
 	"minFormal": 5,
 	"groupsPerRow": 11,
-	"data": {
+	"groups": {
 		"Group A Health Australia Party": [
 			"MUNRO, Leesa Michelle",
 			"HICKS, Andrew"
@@ -103,5 +103,6 @@
 			"SCAGLIONE, Nathan",
 			"ZIVKOVIC, Irene"
 		]
-	}
+	},
+	"ungrouped": []
 }
