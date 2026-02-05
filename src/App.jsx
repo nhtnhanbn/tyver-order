@@ -29,7 +29,7 @@ function App() {
 			<h1>Tyver Order</h1>
 			<div className="config-label">
 				<label htmlFor="configuration">Paste your configuration:</label>
-				<a href="configurations/">What is a configuration?</a>
+				<a href="/order/configurations/">What is a configuration?</a>
 			</div>
 			<textarea
 				id="configuration"
