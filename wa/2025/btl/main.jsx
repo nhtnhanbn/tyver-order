@@ -1,10 +1,15 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
-import "../../../src/index.css"
-import { App } from "./App"
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { Generator } from "../../../components/Generator";
+import importedConfiguration from "/wa/2025/btl/configuration.json?url&raw";
+import "../../../src/index.css";
+
+const configuration = JSON.parse(importedConfiguration);
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
-		<App />
+		<a href="/order/">Home</a>
+		<h1>Victorian state election 2022 - Legislative Council - below the line - North-Eastern Metropolitan Region</h1>
+		<Generator key={JSON.stringify(configuration)} configuration={configuration} />
 	</StrictMode>,
-)
+);
