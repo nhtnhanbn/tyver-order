@@ -13,7 +13,8 @@ export default defineConfig({
 		rollupOptions: {
 			input: {
 				main: resolve(__dirname, "index.html"),
-				configurations: resolve(__dirname, "configurations/index.html"),
+				custom: resolve(__dirname, "custom/index.html"),
+				configurations: resolve(__dirname, "custom/configurations/index.html"),
 				vic2022BtlNorthEasternMetropolitan: resolve(__dirname, "vic/2022/btl/north-eastern-metropolitan/index.html")
 			}
 		}

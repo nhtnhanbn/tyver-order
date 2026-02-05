@@ -8,7 +8,59 @@
 	</head>
 
 	<body>
-		<div id="root"></div>
-		<script type="module" src="./src/main.jsx"></script>
+		<header>
+			Welcome to
+			<h1>Tyver Order</h1>
+		</header>
+		<p>Create a ballot guide to help you cast your vote in <strong>5</strong> easy steps:
+			<ol>
+				<li>Find the <a href="/order/elections/">election</a> you will be voting in, or <a href="/order/custom/">apply your own</a> candidate list and ballot layout.</li>
+				<li>Rank your top groups/parties/tickets according to your preferences by dragging and dropping into the preference order box.</li>
+				<em>Tip: rank all groups and candidates to maximise the power of your vote.</em>
+				<li>Click on a group to expand its candidates, and reorder the rankings of individual candidates by dragging them within or out of groups.</li>
+				<li>Print your generated ballot guide or save it to your phone.</li>
+				<li>Head to your polling place and copy the preferences from your ballot guide onto the provided ballot paper. Cast your vote!</li>
+			</ol>
+		</p>
+		<h2>Why Tyver Order?</h2>
+		<p>The only way to have full control over which candidates receive your preferences and which candidates you can help elect over ones you hate is to number all boxes (above or below the line). But there are a few challenges here:
+			<ul>
+				<li>You cannot skip a number.</li>
+				<li>You cannot repeat a number.</li>
+				<li>You must number a minimum number of boxes - but the more boxes you number, the better you can influence the election.</li>
+				<li>Ballot papers, especially below the line, can get <a href="https://antonygreen.com.au/wa-legislative-council-reform-how-many-preferences-should-be-completed/">very large</a>, making it difficult to number all boxes without making a mistake.</li>
+			</ul>
+		Tyver Order generates a correctly-numbered ballot guide based on your preferences, entered using a convenient drag-and-drop interface. By preparing a validated ballot guide before entering the polling booth, you can be assured* that your vote will count.</p>
+		<p>The default order of groups and candidates in Tyver Order corresponds to the applied configuration - for provided configurations this is ballot order or alphabetical order. Unlike other tools, Tyver Order does not generate a preference order for you based on your political viewpoints - it is entirely up to you to order your preferences as you wish. Tyver Order allows you to freely order groups, reorder candidates within groups and move candidates separately to the rest of their group. Tyver Order can support lower house, above the line and below the line voting. Tyver Order will validate the formality of your ballot according to the rules defined in the configuration.</p>
+		<p>There are other tools available online to help you prepare a ballot guide. The following have supported recent elections.
+			<ul>
+				<li><a href="https://clueyvoter.com/">Cluey Voter</a> lets you rate groups to generate a ballot numbering that you can manually edit, and validates your final numbering.</li>
+				<li><a href="https://buildaballot.org.au/">Build a Ballot</a> lets you complete a questionnaire to help identify policy alignment and assign preferences using a drag-and-drop interface.</li>
+				<li><a href="https://blog.geeklections.com.au/how-to-vote/">geekLections</a> lets you place yourself on a political compass to calculate group preferences, allowing you to reorder them using a drag-and-drop interface.</li>
+			</ul>
+		If any alternatives are missing, <a href="mailto:tyver@nhan.au">let me know</a>.</p>
+		<h2>Disclaimer</h2>
+		<p>Tyver Order aims to accurately generate and validate ballot guides but cannot guarantee that there will be no mistakes. You must check your ballot guide yourself before voting.</p>
+		<h2>Contact</h2>
+		<p>If you have any questions or find any bugs, please contact me at <a href="mailto:tyver@nhan.au">tyver@nhan.au</a> or submit an issue on <a href="https://github.com/Tyver-Voter/order/">GitHub</a>.</p>
+		<footer><hr />Site by <a href="https://nhan.au">Nhan</a>.</footer>
 	</body>
+
+	<style>
+		h1 {
+			margin-top: 0;
+		}
+
+		strong {
+			display: inline-block;
+			border: solid;
+			height: 1em;
+			width: 1em;
+			text-align: center;
+		}
+
+		ol li::marker {
+			font-weight: bold;
+		}
+	</style>
 </html>
