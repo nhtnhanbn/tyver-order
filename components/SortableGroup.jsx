@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { verticalListSortingStrategy, SortableContext, useSortable } from "@dnd-kit/sortable";
@@ -14,10 +13,9 @@ function SortableGroup({ children, id, items }) {
 		transition,
 	} = useSortable({ id: id });
 	const { setNodeRef: setDroppableNodeRef } = useDroppable({ id: droppableId(id) });
-	const [ collapsed, setCollapsed ] = useState(true);
 
 	return (
-		<div
+		<details
 			ref={setSortableNodeRef}
 			style={
 				{
@@ -31,57 +29,35 @@ function SortableGroup({ children, id, items }) {
 					zIndex: 1
 				}
 			}
-					{...attributes}
-					{...listeners}
+			{...attributes}
+			{...listeners}
 		>
-			<div style={
-				{
-					display: "flex",
-					justifyContent: "space-between",
-					textAlign: "left"
-				}
-			}>
-				{id}
-				<div
-					onClick={
-						() => {
-							setCollapsed(!collapsed);
-						}
+			<summary
+				style={
+					{
+						textAlign: "left"
 					}
+				}
+			>{id}</summary>
+			<SortableContext
+				items={items}
+				strategy={verticalListSortingStrategy}
+			>
+				<div
+					ref={setDroppableNodeRef}
 					style={
 						{
-							cursor: "pointer",
-							flex: "0 0 1em",
-							textAlign: "center"
+							textAlign: "center",
+							minHeight: "4em",
+							padding: 10,
+							marginTop: 10
 						}
 					}
 				>
-					{ collapsed ? "+" : "-" }
+					{children}
 				</div>
-			</div>
-
-			{
-				!collapsed &&
-				<SortableContext
-					items={items}
-					strategy={verticalListSortingStrategy}
-				>
-					<div
-						ref={setDroppableNodeRef}
-						style={
-							{
-								textAlign: "center",
-								minHeight: "4em",
-								padding: 10,
-								marginTop: 10
-							}
-						}
-					>
-						{children}
-					</div>
-				</SortableContext>
-			}
-		</div>
+			</SortableContext>
+		</details>
 	);
 }
 
