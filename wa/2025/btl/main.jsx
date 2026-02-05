@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Generator } from "../../../components/Generator";
 import importedConfiguration from "/wa/2025/btl/configuration.json?url&raw";
-import "../index.css";
+import "../../../index.css";
 
 const configuration = JSON.parse(importedConfiguration);
 
