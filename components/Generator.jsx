@@ -355,7 +355,7 @@ function Generator({ configuration }) {
 												return (
 													<td key={groupId}>
 														<b>{groupId}</b>
-														<div className="candidate-box">
+														<div className="group-box">
 															{
 																columnSplit[groupId].map((column, columnIndex) => {
 																	return (

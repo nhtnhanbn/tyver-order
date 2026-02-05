@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Generator } from "../../../../components/Generator";
-import importedConfiguration from "/vic-2022-btl-north-eastern-metropolitan.json?url&raw";
+import importedConfiguration from "/vic/2022/btl/north-eastern-metropolitan/configuration.json?url&raw";
 
 function App() {
 	const [configuration, _] = useState(JSON.parse(importedConfiguration));

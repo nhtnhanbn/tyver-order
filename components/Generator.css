@@ -18,7 +18,7 @@ td {
 	padding: 0.5em;
 }
 
-.candidate-box {
+.group-box {
 	display: flex;
 	flex-direction: row;
 	gap: 2em;
@@ -28,14 +28,14 @@ td {
 	margin-top: 0.5em;
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	align-items: top;
 }
 
 .square {
 	border: solid 0.1em;
-	line-height: 1.8em;
-	height: 1.8em;
-	width: 1.8em;
+	line-height: 2em;
+	height: 2em;
+	width: 2em;
 	margin-right: 0.5em;
 	flex-shrink: 0;
 	font-weight: bold;
@@ -46,7 +46,7 @@ td {
 }
 
 .ballot {
-	max-width: 99vw;
+	max-width: 100%;
 	overflow-x: auto;
 }
 
