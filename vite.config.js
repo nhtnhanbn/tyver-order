@@ -1,6 +1,6 @@
 import { dirname, resolve, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { writeFileSync, readdirSync, statSync, mkdirSync } from "node:fs";
+import { writeFileSync, readdirSync, statSync, mkdirSync, readFileSync } from "node:fs";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
@@ -13,7 +13,7 @@ function getIndexHtml(title) {
 		<meta charset="UTF-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>${title} - Tyver Order</title>
+		<title>${title} | Tyver Order</title>
 	</head>
 
 	<body>
@@ -50,7 +50,7 @@ function buildEntryHtml() {
 				const relativePath = dirname(relative("public", configurationPath));
 				const buildPath = resolve(__dirname, relativePath);
 				mkdirSync(buildPath, { recursive: true });
-				writeFileSync(resolve(buildPath, "index.html"), getIndexHtml(relativePath));
+				writeFileSync(resolve(buildPath, "index.html"), getIndexHtml(JSON.parse(readFileSync(configurationPath)).title));
 				writeFileSync(resolve(buildPath, "main.jsx"), getMainJsx(configurationPath));
 				input[relativePath] = resolve(buildPath, "index.html");
 			}
