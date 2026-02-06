@@ -1,6 +1,6 @@
 import { dirname, resolve, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { writeFileSync, readdirSync, statSync, mkdirSync, readFileSync } from "node:fs";
+import { writeFileSync, readdirSync, statSync, mkdirSync, readFileSync, copyFileSync } from "node:fs";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
@@ -64,6 +64,9 @@ function buildEntryHtml() {
 	};
 
 	traverse(resolve(__dirname, "public"));
+
+	copyFileSync(resolve(__dirname, "elections.html"), resolve(__dirname, "elections/index.html"));
+	input.elections = resolve(__dirname, "elections/index.html");
 
 	return input;
 }
