@@ -25,12 +25,13 @@
 		<p>
 			A configuration is a JSON string that has the following properties:
 			<ul>
-				<li><code>minSaved</code>: The minimum number of preferences required for a ballot to be counted,</li>
-				<li><code>minFormal</code>: The minimum number of preferences required for a ballot to be counted as formal.</li>
-				<li><code>groupsPerRow</code> (optional): The maximum number of group boxes in a row before wrapping. If absent, infinity.</li>
-				<li><code>candidatesPerColumn</code> (optional): The maximum number of candidates in a column within a group box before wrapping. If absent, infinity.</li>
-				<li><code>groups</code>: A JSON object of the grouped candidates - use an empty object <code>{}</code> if there are no groups. The keys are the group identifiers. For each group, the value is an array of candidate identifiers.</li>
-				<li><code>ungrouped</code>: An array of ungrouped candidate identifiers - use an empty array <code>[]</code> if there are no ungrouped candidates.</li>
+				<li><code>"title"</code>: The title of the election.</li>
+				<li><code>"minSaved"</code>: The minimum number of preferences required for a ballot to be counted.</li>
+				<li><code>"minFormal"</code>: The minimum number of preferences required for a ballot to be counted as formal.</li>
+				<li><code>"groupsPerRow"</code> (optional): The maximum number of group boxes in a row before wrapping. If absent, infinity.</li>
+				<li><code>"candidatesPerColumn"</code> (optional): The maximum number of candidates in a column within a group box before wrapping. If absent, infinity.</li>
+				<li><code>"groups"</code>: A JSON object of the grouped candidates - use an empty object <code>{}</code> if there are no groups. The keys are the group identifiers. For each group, the value is an array of candidate identifiers.</li>
+				<li><code>"ungrouped"</code>: An array of ungrouped candidate identifiers - use an empty array <code>[]</code> if there are no ungrouped candidates.</li>
 			</ul>
 			Group and candidate identifiers must be unique and must not be an empty string <code>""</code>. A candidate identifier must not be the same as any group identifier. Group and candidate identifiers are also used as labels on the generated ballot guide.
 		</p>

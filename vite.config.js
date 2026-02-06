@@ -35,7 +35,6 @@ const configuration = JSON.parse(importedConfiguration);
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
 		<a href="/order/">Home</a>
-		<h1>${configurationPath}</h1>
 		<Generator key={JSON.stringify(configuration)} configuration={configuration} />
 	</StrictMode>,
 );`;

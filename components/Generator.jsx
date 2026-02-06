@@ -278,6 +278,7 @@ function Generator({ configuration }) {
 
 	return (
 		<>
+			<h1 className="printable">{configuration.title}</h1>
 			<DndContext
 				sensors={sensors}
 				onDragEnd={handleDragEnd}
@@ -366,7 +367,7 @@ function Generator({ configuration }) {
 					Ballot is formal.
 				</p>
 			}
-			<div className="ballot">
+			<div className="printable">
 				<table>
 					<tbody>
 						{

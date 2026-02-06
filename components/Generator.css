@@ -55,7 +55,7 @@ td {
 		display: none;
 	}
 
-	#root :not(.ballot, .ballot *) {
+	#root :not(.printable, .printable *) {
 		display: none;
 	}
 }

@@ -3,6 +3,7 @@ import { Generator } from "../components/Generator";
 import "./App.css";
 
 const placeholder = {
+	"title": "Sample election",
 	"minSaved": 2,
 	"minFormal": 4,
 	"groupsPerRow": 2,
