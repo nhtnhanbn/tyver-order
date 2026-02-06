@@ -23,18 +23,20 @@ function getIndexHtml(title) {
 </html>`;
 }
 
-function getMainJsx(configurationPath) {
+function getMainJsx(relativePath) {
 	return `import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Generator } from "/components/Generator";
-import importedConfiguration from "${configurationPath}${"?url&raw"}";
+import importedConfiguration from "${resolve("/", relativePath, "configuration.json?url&raw")}";
 import "/index.css";
 
 const configuration = JSON.parse(importedConfiguration);
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
-		<a href="/order/">Home</a>
+		<nav><a href="/order/">Home</a></nav>
+		<br />
+		<a href="/order/${relativePath}/configuration.json">Configuration</a>
 		<Generator key={JSON.stringify(configuration)} configuration={configuration} />
 	</StrictMode>,
 );`;
@@ -51,7 +53,7 @@ function buildEntryHtml() {
 				const buildPath = resolve(__dirname, relativePath);
 				mkdirSync(buildPath, { recursive: true });
 				writeFileSync(resolve(buildPath, "index.html"), getIndexHtml(JSON.parse(readFileSync(configurationPath)).title));
-				writeFileSync(resolve(buildPath, "main.jsx"), getMainJsx(configurationPath));
+				writeFileSync(resolve(buildPath, "main.jsx"), getMainJsx(relativePath));
 				input[relativePath] = resolve(buildPath, "index.html");
 			}
 		}

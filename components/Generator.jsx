@@ -367,7 +367,7 @@ function Generator({ configuration }) {
 					Ballot is formal.
 				</p>
 			}
-			<div className="printable">
+			<div className="printable ballot">
 				<table>
 					<tbody>
 						{
