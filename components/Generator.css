@@ -50,6 +50,10 @@ td {
 	overflow-x: auto;
 }
 
+.printonly, .printonly * {
+	display: none;
+}
+
 @media print {
 	body :not(#root, #root *) {
 		display: none;
@@ -57,6 +61,14 @@ td {
 
 	#root :not(.printable, .printable *) {
 		display: none;
+	}
+
+	.printonly, .printonly * {
+		display: revert;
+	}
+
+	table {
+		margin-right: 10px;
 	}
 }
 

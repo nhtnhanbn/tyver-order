@@ -48,7 +48,6 @@ function App() {
 					}
 				}
 			>Apply configuration</button>
-			<br />
 			<Generator key={JSON.stringify(configuration)} configuration={configuration} />
 		</>
 	);

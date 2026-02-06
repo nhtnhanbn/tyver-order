@@ -5,7 +5,8 @@ textarea, .config-label {
 }
 
 textarea {
-	min-height: 22em;
+	min-height: 23em;
+	margin-bottom: 1em;
 }
 
 .config-label {
