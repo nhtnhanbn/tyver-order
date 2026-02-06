@@ -49,7 +49,7 @@ function buildEntryHtml() {
 				traverse(configurationPath);
 			} else if (file === "configuration.json") {
 				const relativePath = dirname(relative("public", configurationPath));
-				const buildPath = resolve(__dirname, "elections", relativePath);
+				const buildPath = resolve(__dirname, relativePath);
 				mkdirSync(buildPath, { recursive: true });
 				writeFileSync(resolve(buildPath, "index.html"), getIndexHtml(relativePath));
 				writeFileSync(resolve(buildPath, "main.jsx"), getMainJsx(configurationPath));
