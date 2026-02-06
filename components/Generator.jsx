@@ -409,6 +409,7 @@ function Generator({ configuration }) {
 					</tbody>
 				</table>
 			</div>
+			<footer><hr />Site by <a href="https://nhan.au">Nhan</a>.</footer>
 		</>
 	);
 
