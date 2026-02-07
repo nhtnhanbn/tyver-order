@@ -369,7 +369,7 @@ function Generator({ configuration }) {
 					Ballot is formal.
 				</p>
 			}
-			<div className="printable ballot">
+			<div className="printable ballot pre-line">
 				<table>
 					<tbody>
 						{
@@ -380,7 +380,7 @@ function Generator({ configuration }) {
 											ballotRow.map((groupId) => {
 												return (
 													<td key={groupId}>
-														<b>{groupId}</b>
+														{groupId.length > 0 && <b>{groupId}</b>}
 														<div className="group-box">
 															{
 																columnSplit[groupId].map((column, columnIndex) => {

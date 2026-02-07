@@ -14,6 +14,7 @@ function SortableCandidate({ id }) {
 	return (
 		<div
 			ref={setNodeRef}
+			className="pre-line"
 			style={
 				{
 					transform: CSS.Translate.toString(transform),
