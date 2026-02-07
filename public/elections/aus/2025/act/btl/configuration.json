@@ -1,0 +1,36 @@
+{
+	"title": "Australian federal election 2025 - Senate - Australian Capital Territory - below the line",
+	"minSaved": 6,
+	"minFormal": 12,
+	"groups": {
+		"A Sustainable Australia Party - Universal Basic Income": [
+			"HOLGATE, James",
+			"HAYDON, John"
+		],
+		"B David Pocock": [
+			"POCOCK, David",
+			"VARDY, Hannah"
+		],
+		"C Animal Justice Party": [
+			"SOXSMITH, Robyn",
+			"KUDRYCZ, Walter"
+		],
+		"D Australian Labor Party": [
+			"GALLAGHER, Katy",
+			"OH, Janaline"
+		],
+		"E Liberal": [
+			"VADAKKEDATHU, Jacob",
+			"LEE, Hayune"
+		],
+		"F HEART/LIBERTARIAN": [
+			"SEARSON-PRAKAASH, Elise",
+			"BROWN, Martin"
+		],
+		"G Australian Greens": [
+			"HOBBS, Christina",
+			"ROCKE, Jo"
+		]
+	},
+	"ungrouped": []
+}

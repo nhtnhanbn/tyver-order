@@ -1,0 +1,42 @@
+{
+	"title": "Australian federal election 2025 - Senate - Northern Territory - below the line",
+	"minSaved": 6,
+	"minFormal": 12,
+	"groups": {
+		"A Sustainable Australia Party - Universal Basic Income": [
+			"CHIVERS, Ian",
+			"WHYTE, Lamaan"
+		],
+		"B Legalise Cannabis Party": [
+			"LAWRENCE, Lance Alfred",
+			"LUYKEN, Suzette"
+		],
+		"C Australian Labor Party (Northern Territory) Branch": [
+			"McCARTHY, Malarndirri",
+			"ALSOP, Michael William"
+		],
+		"D NT CLP": [
+			"PRICE, Jacinta Nampijinpa",
+			"HERSEY, Dean"
+		],
+		"E Australian Greens": [
+			"NEWPORT, Aia",
+			"WELLS, Hugo"
+		],
+		"F Pauline Hanson's One Nation": [
+			"NUGENT, Darren",
+			"HEWES, Caine"
+		],
+		"G Citizens Party": [
+			"WYLIE, Lionel",
+			"CAMPBELL, Trudy"
+		],
+		"H Libertarian": [
+			"HANSEN, Jed",
+			"SMITH, Trevor"
+		]
+	},
+	"ungrouped": [
+		"KENNY, Que"
+	]
+}
