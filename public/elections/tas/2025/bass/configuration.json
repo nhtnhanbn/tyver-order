@@ -1,0 +1,52 @@
+{
+	"title": "Tasmanian state House of Assembly election 2025 - Bass",
+	"groups": {
+		"Tasmanian Greens": [
+			"BALL, Lauren",
+			"FITTLER, Jack",
+			"HALL, Tom",
+			"LAYTON-BENNETT, Anne",
+			"McLENNAN, Charlene",
+			"MARCH, Eric",
+			"ROSOL, Cecily"
+		],
+		"The Nationals": [
+			"ARMSTRONG, Angela",
+			"COOPER, Carl"
+		],
+		"Australian Labor Party": [
+			"ANDERSON, Melissa",
+			"FINLAY, Janie",
+			"GORDON, Will",
+			"GREENE, Jess",
+			"LYONS, Geoff",
+			"MOORE, Luke",
+			"THOMAS, Peter"
+		],
+		"Liberal Party": [
+			"ARCHER, Bridget",
+			"FAIRS, Rob",
+			"FERGUSON, Michael",
+			"GATENBY, Chris",
+			"QUAILE, Sarah",
+			"SLADDEN, Julie",
+			"WOOD, Simon"
+		],
+		"Group E": [
+			"RAZAY, George"
+		],
+		"Shooters, Fishers, Farmers TAS": [
+			"FRYDRYCH, Michal"
+		]
+	},
+	"ungrouped": [
+		"DAVENPORT, Jack",
+		"EDWARDS, Fenella",
+		"GROAT, Daniel",
+		"LARNER, Caroline",
+		"PENTLAND, Rebekah",
+		"WALKER, Tim"
+	],
+	"minSaved": 7,
+	"minFormal": 7
+}
