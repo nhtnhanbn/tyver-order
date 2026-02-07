@@ -13,6 +13,7 @@ function getIndexHtml(title) {
 		<meta charset="UTF-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Make your vote count with the Tyver Order tool. Generate a ballot guide of your own preferences to help you vote in the ${title}">
 		<title>${title} | Tyver Order</title>
 	</head>
 
