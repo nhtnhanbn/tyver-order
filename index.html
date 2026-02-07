@@ -13,24 +13,41 @@
 			<h1>Tyver Order</h1>
 		</header>
 		<p>Create a ballot guide to help you cast your vote in <strong class="box">5</strong> easy steps:
-			<ol>
-				<li>Find the <a href="/order/elections/">election</a> you will be voting in, or <a href="/order/custom/">apply your own</a> candidate list and ballot layout.</li>
-				<li>Rank your top groups/parties/tickets according to your preferences by dragging and dropping into the preference order box.</li>
-				<em>Tip: rank all groups and candidates to maximise the power of your vote.</em>
-				<li>Click on a group to expand its candidates, and reorder the rankings of individual candidates by dragging them within or out of groups.</li>
-				<li>Print your generated ballot guide or save it to your phone.</li>
-				<li>Head to your polling place and copy the preferences from your ballot guide onto the provided ballot paper. Cast your vote!</li>
-			</ol>
+			<table>
+				<tr>
+					<th class="box">1</th>
+					<td>Find the <a href="/order/elections/">election</a> you will be voting in, or <a href="/order/custom/">apply your own</a> candidate list and ballot layout.</td>
+				</tr>
+				<tr>
+					<th class="box">2</th>
+					<td>
+						Rank your top groups/parties/tickets according to your preferences by dragging and dropping into the preference order box.<br />
+						<em>Tip: rank all groups and candidates to maximise the power of your vote.</em>
+					</td>
+				</tr>
+				<tr>
+					<th class="box">3</th>
+					<td>Click on a group to expand its candidates, and reorder the rankings of individual candidates by dragging them within or out of groups.</td>
+				</tr>
+				<tr>
+					<th class="box">4</th>
+					<td>Print your generated ballot guide or save it to your phone.</td>
+				</tr>
+				<tr>
+					<th class="box">5</th>
+					<td>Head to your polling place and copy the preferences from your ballot guide onto the provided ballot paper. Cast your vote!</td>
+				</tr>
+			</table>
 		</p>
 		<h2>Why Tyver Order?</h2>
-		<p>The only way to have full control over which candidates receive your preferences and which candidates you can help elect over ones you hate is to number all boxes (above or below the line). But there are a few challenges here:
+		<p>The only way to have full control over which candidates receive your preferences and which candidates you can help elect over ones you hate is to number all boxes (below the line in proportional elections). But there are a few challenges here:
 			<ul>
 				<li>You cannot skip a number.</li>
 				<li>You cannot repeat a number.</li>
 				<li>You must number a minimum number of boxes - but the more boxes you number, the better you can influence the election.</li>
 				<li>Ballot papers, especially below the line, can get <a href="https://antonygreen.com.au/wa-legislative-council-reform-how-many-preferences-should-be-completed/">very large</a>, making it difficult to number all boxes without making a mistake.</li>
 			</ul>
-		Tyver Order generates a correctly-numbered ballot guide based on your preferences, entered using a convenient drag-and-drop interface. By preparing a validated ballot guide before entering the polling booth, you can be assured* that your vote will count.</p>
+		Tyver Order generates a correctly-numbered ballot guide based on your preferences, entered using a convenient drag-and-drop interface. By preparing a validated ballot guide before entering the polling booth, you can be assured (sort of, see below) that your vote will count.</p>
 		<p>You must check your ballot paper carefully at the polling place as the layout of your ballot guide may not perfectly match the actual ballot paper. <strong>If your election employs Robson rotation, the order of candidates on your ballot paper will differ from that on your generated ballot guide.</strong></p>
 		<p>The default order of groups and candidates in Tyver Order corresponds to the applied configuration - for provided configurations this is ballot order or alphabetical order. Tyver Order does not recommend any preference order or help determine your partisan alignment - it is entirely up to you to order your preferences as you wish. Tyver Order allows you to freely order groups, reorder candidates within groups and move candidates separately to the rest of their group. Tyver Order can support lower house, above the line and below the line voting. Tyver Order will validate the formality of your ballot according to the rules defined in the configuration.</p>
 		<p>There are other tools available online to help you prepare a ballot guide. The following have supported recent elections and have various feature sets and interfaces which may suit your needs better.
@@ -43,7 +60,7 @@
 		<h2>Disclaimer</h2>
 		<p>Tyver Order aims to accurately generate and validate ballot guides but cannot guarantee that there will be no mistakes. You must check your ballot guide yourself before voting.</p>
 		<h2>Contact</h2>
-		<p>If you have any questions or find any bugs, please contact me at <a href="mailto:tyver@nhan.au">tyver@nhan.au</a> or submit an issue on <a href="https://github.com/Tyver-Voter/order/">GitHub</a>.</p>
+		<p>If you have any questions or requests, or find any bugs, please contact me at <a href="mailto:tyver@nhan.au">tyver@nhan.au</a> or submit an issue on <a href="https://github.com/Tyver-Voter/order/">GitHub</a>.</p>
 		<footer><hr />Site by <a href="https://nhan.au">Nhan</a>.</footer>
 	</body>
 
@@ -62,6 +79,10 @@
 
 		ol li::marker {
 			font-weight: bold;
+		}
+
+		table {
+			border-spacing: 0.5em;
 		}
 	</style>
 </html>
